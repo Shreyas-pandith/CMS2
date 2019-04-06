@@ -4,6 +4,8 @@ var connection=require('../db');
 var path = require('path');
 var fs = require('fs');
 var multer  = require('multer');
+var check_permission=require('../access_control.js');
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/uploads')
@@ -23,7 +25,45 @@ var upload1 = multer({
     storage: storage,
 }).single('file');
 
-router.get('/', function(req, res){
+router.get('/',function(req, res, next){
+        console.log('Entered Access_controll');
+        var role="Guest";
+        console.log(role);
+        if(req.user !=null)
+        {
+            connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+                if(err1 || rows1.length === 0) {
+                    console.log(err1);
+                    res.redirect('/users/login')
+        
+                }
+                else {
+                    console.log(rows1[0].role);
+                    role= rows1[0].role;
+                   
+                    if(check_permission(role,"I_HOME_READ"))
+                    {
+                        next();
+                    }
+                    else{
+                        res.send("Access Permission Denied");
+                    }
+                    }
+                });
+            console.log(role);
+        }
+        else{
+                    if(check_permission(role,"I_HOME_READ"))
+                    {
+                        next();
+                    }
+                    else{
+                        res.send("Access Permission Denied");
+                    }
+            }
+        
+      
+        }, function(req, res){
     console.log('ashdgasgdhsad');
     if(req.user) {
             var g = 'Instructor';
@@ -59,7 +99,45 @@ router.get('/', function(req, res){
 
 
 
-router.post('/profile', function(req, res, next){
+router.post('/profile',function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_PROFILE_WRITE"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_PROFILE_WRITE"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    },function(req, res, next){
     if(req.user){
 
 
@@ -113,7 +191,45 @@ router.post('/profile', function(req, res, next){
 
 
 
-router.get('/profile', function(req, res, next) {
+router.get('/profile', function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_PROFILE_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_PROFILE_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    },function(req, res, next) {
     if(req.user){
         connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
             if(err1) {
@@ -143,7 +259,45 @@ router.get('/profile', function(req, res, next) {
 });
 
 
-router.post('/offer-course', function(req, res){
+router.post('/offer-course',function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_OFFER_COURSE_WRITE"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_OFFER_COURSE_WRITE"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    }, function(req, res){
     if(req.user) {
 
         connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
@@ -205,7 +359,45 @@ router.post('/offer-course', function(req, res){
 
 
 
-router.get('/courses', function(req, res){
+router.get('/courses', function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_COURSES_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_COURSES_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    },function(req, res){
     if(req.user) {
 
         connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
@@ -245,7 +437,45 @@ router.get('/courses', function(req, res){
 });
 
 
-router.get('/course-details/:id', function(req, res){
+router.get('/course-details/:id',function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_COURSE_DEATAILS_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_COURSE_DEATAILS_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    }, function(req, res){
     if(req.user) {
 
         connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
@@ -297,7 +527,45 @@ router.get('/course-details/:id', function(req, res){
 
 
 
-router.post('/course-details/:id', function(req, res){
+router.post('/course-details/:id', function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_COURSE_DEATAILS_WRITE"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_COURSE_DEATAILS_WRITE"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    },function(req, res){
     if(req.user) {
 
         connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
@@ -359,7 +627,45 @@ router.post('/course-details/:id', function(req, res){
 
 
 
-router.get('/offer-course', function(req, res){
+router.get('/offer-course',  function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_OFFER_COURSE_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_OFFER_COURSE_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    },function(req, res){
     if(req.user) {
 
         connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
@@ -391,7 +697,45 @@ router.get('/offer-course', function(req, res){
 
 
 
-router.get('/course/announcement/:id1/:id2', function(req, res){
+router.get('/course/announcement/:id1/:id2',  function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_ANNOUNCEMENT_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_ANNOUNCEMENT_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    },function(req, res){
     if(req.user) {
 
         connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
@@ -455,7 +799,45 @@ router.get('/course/announcement/:id1/:id2', function(req, res){
 
 
 
-router.post('/course/announcement/:id', function(req, res){
+router.post('/course/announcement/:id',function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_ANNOUNCEMENT_WRITE"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_ANNOUNCEMENT_WRITE"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    }, function(req, res){
     if(req.user) {
 
         connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
@@ -514,7 +896,45 @@ router.post('/course/announcement/:id', function(req, res){
 });
 
 
-router.get('/course/:course_id/resources/', function(req, res){
+router.get('/course/:course_id/resources/',function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_RESOURCES_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_RESOURCES_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    }, function(req, res){
     if(req.user) {
 
         connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
@@ -574,7 +994,45 @@ router.get('/course/:course_id/resources/', function(req, res){
 });
 
 
-router.post('/course/:course_id/resources/', function (req, res) {
+router.post('/course/:course_id/resources/',function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_RESOURCES_WRITE"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_RESOURCES_WRITE"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    }, function (req, res) {
     console.log('bbbnvnb');
     upload1(req, res, function (err) {
         if (err instanceof multer.MulterError) {
@@ -644,7 +1102,45 @@ router.post('/course/:course_id/resources/', function (req, res) {
     });
 });
 
-router.get('/course/:course_id/resources/:resource_id', function (req, res) {
+router.get('/course/:course_id/resources/:resource_id', function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_RESOURCE_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_RESOURCE_READ"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    },function (req, res) {
 
     if(req.user) {
 
@@ -695,7 +1191,45 @@ router.get('/course/:course_id/resources/:resource_id', function (req, res) {
     }
 });
 
-router.get('/course/:course_id/resources/:resource_id/delete', function (req, res) {
+router.get('/course/:course_id/resources/:resource_id/delete',function(req, res, next){
+    console.log('Entered Access_controll');
+    var role="Guest";
+    console.log(role);
+    if(req.user !=null)
+    {
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
+            if(err1 || rows1.length === 0) {
+                console.log(err1);
+                res.redirect('/users/login')
+    
+            }
+            else {
+                console.log(rows1[0].role);
+                role= rows1[0].role;
+               
+                if(check_permission(role,"I_RESOURCE_DELETE"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+                }
+            });
+        console.log(role);
+    }
+    else{
+                if(check_permission(role,"I_RESOURCE_DELETE"))
+                {
+                    next();
+                }
+                else{
+                    res.send("Access Permission Denied");
+                }
+        }
+    
+  
+    }, function (req, res) {
 
     if(req.user) {
 
@@ -2067,6 +2601,193 @@ router.get('/course/:course_id/:student_id/approve', function(req, res){
 });
 
 
+
+/*          */
+
+router.get('/course/:course_id/assistants', function(req, res){
+    if(req.user) {
+
+        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+            if(err1) {
+                console.log(err1);
+                res.redirect('/users/login')
+
+            }
+            else {
+                connection.query("SELECT * FROM INSTRUCTOR WHERE User_id = ?  ",req.user ,function(err2,rows2){
+                    if(err2) {
+                        console.log(err2);
+                        res.redirect('/users/login')
+
+                    }
+                    else {
+                        connection.query("SELECT * FROM COURSE WHERE Course_id = ?  ",req.params.course_id ,function(err3,rows3){
+                            if(err3) {
+                                console.log(err3);
+                                res.redirect('/instructor/courses/')
+
+                            }
+                            else {
+
+                                connection.query("SELECT * FROM ANOUNCEMENT WHERE Course_id = ?  AND Instructor_id = ? ORDER BY -Posted_on LIMIT 5",[req.params.course_id, rows2[0].Instructor_id] ,function(err4,rows4){
+                                    if(err4) {
+                                        console.log(err4);
+                                        res.redirect('/instructor/courses/')
+
+                                    }
+                                    else {
+
+                                        connection.query("SELECT * FROM ASSISTANT WHERE Assistant_id IN (SELECT Assistant_id FROM JOINED WHERE Course_id = ?) ORDER BY Assistant_id",[req.params.course_id] ,function(err5,rows5){
+                                            if(err5) {
+                                                console.log(err4);
+                                                res.redirect('/instructor/courses/')
+
+                                            }
+                                            
+                                                            else {
+
+                                                                connection.query("SELECT  * FROM  PERMISSION2, ASSISTANT  WHERE Course_id = ? AND PERMISSION2.Assistant_id = ASSISTANT.Assistant_id",[req.params.course_id] ,function(err5,c1) {
+                                                                    if (err5) {
+                                                                        console.log(err5);
+                                                                        res.redirect('/instructor/')
+
+                                                                    }
+                                                                    else {
+                                                    
+                          console.log(c1);
+
+                                                                        res.render('instructor/assistants', {
+                                                                            'user': rows1[0],
+                                                                            'instructor': rows2[0],
+                                                                            'course': rows3[0],
+                                                                            'announcements': rows4,
+                                                                            'assistants': rows5,
+                                                                        
+                                                                            'requested':c1,
+                                                                            messages: req.flash('info')
+                                                                        });
+                                                                    }
+                                                                });
+
+                                                            }
+                                                        });
+
+                                                  
+
+
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+    }
+    else{
+        return res.redirect('/users/login')
+    }
+});
+
+
+
+
+
+router.get('/course/:course_id/:assistant_id/approve2', function(req, res){
+    if(req.user) {
+
+        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+            if(err1) {
+                console.log(err1);
+                res.redirect('/users/login')
+
+            }
+            else {
+                connection.query("SELECT * FROM INSTRUCTOR WHERE User_id = ?  ",req.user ,function(err2,rows2){
+                    if(err2) {
+                        console.log(err2);
+                        res.redirect('/users/login')
+
+                    }
+                    else {
+                        connection.query("SELECT * FROM COURSE WHERE Course_id = ?  ",req.params.course_id ,function(err3,rows3){
+                            if(err3) {
+                                console.log(err3);
+                                res.redirect('/instructor/courses/')
+
+                            }
+                            else {
+
+                                connection.query("SELECT * FROM ANOUNCEMENT WHERE Course_id = ?  AND Instructor_id = ? ORDER BY -Posted_on LIMIT 5",[req.params.course_id, rows2[0].Instructor_id] ,function(err4,rows4){
+                                    if(err4) {
+                                        console.log(err4);
+                                        res.redirect('/instructor/courses/')
+
+                                    }
+                                    else {
+
+                                        connection.query("SELECT * FROM ASSISTANT WHERE Assistant_id IN (SELECT Assistant_id FROM JOINED WHERE Course_id = ?) ORDER BY Assistant_id",[req.params.course_id] ,function(err5,rows5){
+                                            if(err5) {
+                                                console.log(err4);
+                                                res.redirect('/instructor/courses/')
+
+                                            }
+                                            
+                                                            else {
+
+                                                                var data = {
+                                                                    'Assistant_id': req.params.assistant_id,
+                                                                    'Course_id': req.params.course_id
+                                                                };
+
+                                                                connection.query("INSERT  INTO JOINED SET ?",data ,function(err5,c1) {
+                                                                    if (err5) {
+                                                                        console.log(err5);
+                                                                        res.redirect('/instructor/')
+
+                                                                    }
+                                                                    else {
+
+
+                                                                        connection.query("DELETE  FROM PERMISSION2 WHERE Assistant_id = ? AND Course_id = ?",[req.params.assistant_id, req.params.course_id] ,function(err5,c2) {
+                                                                            if (err5) {
+                                                                                console.log(err5);
+                                                                                res.redirect('/instructor/')
+
+                                                                            }
+                                                                            else {
+
+
+
+                                                                                res.redirect('/instructor/course/'+req.params.course_id+'/assistants/')
+
+                                                                            }
+                                                                        });
+
+
+                                                                    }
+                                                                });
+
+                                                       
+
+                                            }
+                                        });
+
+                                    }
+                                });
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+    }
+    else{
+        return res.redirect('/users/login')
+    }
+});
 
 
 

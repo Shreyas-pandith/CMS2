@@ -1,13 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var connection=require('../db');
+var check_permission=require('../access_control.js');
 
 
 
 
 
-router.get('/', function(req, res){
-   
+router.get('/', function(req, res, next){
+    console.log('hy');
+        if(check_permission("Assistant","A_HOME"))
+        {
+            next();
+        }
+        else{
+            res.send("Access Permission Denied");
+        }
+        },function(req, res){
+    
     if(req.user) {
             var g = 'Assistant';
         connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, g] ,function(err1,rows1){
@@ -220,6 +230,154 @@ router.get('/search/course/:id', function(req, res, next) {
 
 
 
+});
+
+
+
+
+
+router.get('/course/join', function(req, res, next) {
+
+    if(req.user) {
+
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
+            if(err1) {
+                console.log(err1);
+                res.redirect('/users/login')
+
+            }
+            else {
+                connection.query("SELECT * FROM ASSISTANT WHERE User_id = ?  ",req.user ,function(err2,rows2){
+                    if(err2) {
+                        console.log(err2);
+                        res.redirect('/users/login')
+
+                    }
+                    else {
+
+                        connection.query(" SELECT * FROM COURSE WHERE Course_id NOT IN (SELECT Course_id FROM JOINED WHERE Assistant_id = ?) AND Course_id NOT IN (SELECT Course_id FROM PERMISSION2 WHERE Assistant_id = ?)",[rows2[0].Assistant, rows2[0].Assistant_id],function(err3,row3){
+                            if(err3) {
+                                console.log(err3);
+                                res.redirect('/assistant');
+                            }
+                            else {
+                                console.log(row3);
+                                res.render('assistant/search/courses',{'user':rows1[0], 'assistant': rows2[0], courses : row3});
+                            }
+                        });
+
+
+                    }
+                });
+            }
+        });
+    }
+    else{
+        return res.redirect('/users/login')
+    }
+
+});
+
+
+
+
+router.get('/course/:id/join', function(req, res, next) {
+
+    if(req.user) {
+
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
+            if(err1) {
+                console.log(err1);
+                res.redirect('/users/login')
+
+            }
+            else {
+                connection.query("SELECT * FROM ASSISTANT WHERE User_id = ?  ",req.user ,function(err2,rows2){
+                    if(err2) {
+                        console.log(err2);
+                        res.redirect('/users/login')
+
+                    }
+                    else {
+
+                        var permission={
+                            'Course_id' : req.params.id ,
+                            'Assistant_id' : rows2[0].Assistant_id
+                        };
+
+                        connection.query(" INSERT INTO PERMISSION2 SET ? ",permission,function(err1,row){
+                            if(err1) {
+
+                                console.log(err1);
+                            }
+                            else {
+                                res.redirect('/assistant/courses');
+                            }
+                        });
+
+
+                    }
+                });
+            }
+        });
+    }
+    else{
+        return res.redirect('/users/login')
+    }
+
+});
+
+
+
+router.get('/courses', function(req, res){
+    if(req.user) {
+
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
+            if(err1) {
+                console.log(err1);
+                res.redirect('/users/login')
+
+            }
+            else {
+                connection.query("SELECT * FROM ASSISTANT WHERE User_id = ?  ",req.user ,function(err2,assistant){
+                    if(err2) {
+                        console.log(err2);
+                        res.redirect('/users/login')
+
+                    }
+                    else {
+
+                        connection.query("select A.Course_id ,Course_Title,Course_Code from COURSE INNER JOIN (SELECT * FROM JOINED WHERE Assistant_id = ? )A ON COURSE.Course_id=A.Course_id ",assistant[0].Assistant_id ,function(err2,courses){
+                            if(err2) {
+                                console.log(err2);
+                                res.redirect('/assistant');
+
+                            }
+                            else {
+                                connection.query("select Course_id ,Course_Title,Course_Code from COURSE  WHERE  Course_id IN (SELECT Course_id FROM PERMISSION2 WHERE Assistant_id = ? ) ",assistant[0].Assistant_id ,function(err2,rcourses){
+                                    if(err2) {
+                                        console.log(err2);
+                                        res.redirect('/assistant');
+
+                                    }
+                                    else {
+                                        console.log(rcourses);
+
+                                        res.render('assistant/mycourses',{'user':rows1[0], 'assistant': assistant,'courses':courses, 'requested': rcourses});
+                                    }
+                                });
+
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+    }
+    else{
+        return res.redirect('/users/login')
+    }
 });
 
 

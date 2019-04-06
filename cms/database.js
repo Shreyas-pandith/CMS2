@@ -550,6 +550,44 @@ function connectDatabase() {
                     console.log('Assistant table created');
                 });
 
+                let createTodos22 = `CREATE TABLE if not exists JOINED
+                (
+                  Course_id INT NOT NULL,
+                  Assistant_id INT NOT NULL,
+                  PRIMARY KEY (Course_id, Assistant_id),
+                  FOREIGN KEY (Course_id) REFERENCES COURSE(Course_id) ON DELETE CASCADE,
+                  FOREIGN KEY (Assistant_id) REFERENCES ASSISTANT(Assistant_id) ON DELETE CASCADE
+                ) 
+                ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci`;
+
+                db.query(createTodos22, function(err, results, fields) {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                    console.log('Joined table created');
+                });
+                    
+
+                let createTodos23 = `CREATE TABLE if not exists PERMISSION2
+                (
+                  Permission2_id INT NOT NULL AUTO_INCREMENT,
+                  Course_id INT NOT NULL,
+                  Assistant_id INT,
+                  PRIMARY KEY (Permission2_id),
+                  FOREIGN KEY (Course_id) REFERENCES COURSE(Course_id) ON DELETE CASCADE,
+                  FOREIGN KEY (Assistant_id) REFERENCES ASSISTANT(Assistant_id)
+                ) 
+                ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci`;
+
+                db.query(createTodos23, function(err, results, fields) {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                    console.log('Permission2 table created');
+                });
+
+
+
                 db.end(function(err) {
                     if (err) {
                         return console.log(err.message);
