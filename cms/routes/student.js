@@ -21,7 +21,7 @@ router.get('/', function(req, res){
 
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Student'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1 || rows1.length === 0) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -111,7 +111,7 @@ router.post('/profile', function(req, res){
                 res.redirect('/users/login')
 
             }
-            else if(rows1[0].role === 'Student') {
+            else  {
                 connection.query("UPDATE STUDENT SET First_Name = ?, Middle_Name = ?, Last_Name = ? WHERE User_id = ?  ",[First_Name, Middle_Name, Last_Name,req.user] ,function(err2,rows2){
                     if(err2) {
                         console.log(err2);
@@ -719,7 +719,7 @@ router.get('/course/:course_id/assignments/', function(req, res){
 router.get('/course/:course_id/students', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1527,7 +1527,7 @@ router.get('/course/:course_id/assignment/:assignment_id/submission', function (
 router.post('/course/:course_id/:question_id/:answer_id', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Student'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1589,7 +1589,7 @@ router.post('/course/:course_id/:question_id/:answer_id', function(req, res){
 router.get('/course/:course_id/exams/', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Student'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1646,7 +1646,7 @@ router.get('/course/:course_id/exams/', function(req, res){
 router.post('/course/:course_id/exams/:exam_id/start', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Student'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1732,7 +1732,7 @@ router.post('/course/:course_id/exams/:exam_id/start', function(req, res){
 router.get('/course/:course_id/exams/:exam_id/result', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Student'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1798,7 +1798,7 @@ router.get('/course/:course_id/exams/:exam_id/result', function(req, res){
 router.post('/course/submit/exam/:course_id/:exam_id/', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Student'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1900,7 +1900,7 @@ router.post('/course/submit/exam/:course_id/:exam_id/', function(req, res){
 router.get('/course/:course_id/exams/:exam_id/enter', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Student'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1971,6 +1971,49 @@ router.get('/course/:course_id/exams/:exam_id/enter', function(req, res){
         return res.redirect('/users/login')
     }
 });
+
+
+
+
+router.get('/course/:course_id/contact', function(req, res){
+    if(req.user) {
+
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
+            if(err1) {
+                console.log(err1);
+                res.redirect('/users/login')
+
+            }
+            else {
+                connection.query("SELECT * FROM STUDENT WHERE User_id = ?  ",req.user ,function(err2,rows2){
+                    if(err2) {
+                        console.log(err2);
+                        res.redirect('/users/login')
+
+                    }
+                    else {
+                        connection.query("SELECT * FROM COURSE WHERE Course_id = ?  ",req.params.course_id ,function(err3,rows3){
+                            if(err3) {
+                                console.log(err3);
+                                res.redirect('/student/courses/')
+
+                            }
+                            else {
+
+                               res.send("contact");
+                            }
+                        });
+
+                    }
+                });
+            }
+        });
+    }
+    else{
+        return res.redirect('/users/login')
+    }
+});
+
 
 
 module.exports = router;

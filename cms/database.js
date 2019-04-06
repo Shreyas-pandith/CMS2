@@ -18,7 +18,6 @@ function connectDatabase() {
                 email varchar(100) COLLATE utf8_unicode_ci NOT NULL UNIQUE, 
                 password varchar(255) COLLATE utf8_unicode_ci NOT NULL, 
                 created datetime NOT NULL,
-                role varchar(100),
                 PRIMARY KEY(id)) 
                 ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci`;
 
@@ -586,7 +585,21 @@ function connectDatabase() {
                     console.log('Permission2 table created');
                 });
 
+                let createTodos24 = `CREATE TABLE if not exists ROLES
+                (
+                  User_id INT NOT NULL,
+                  role VARCHAR(255),
+                  PRIMARY KEY (User_id,role),
+                  FOREIGN KEY (User_id) REFERENCES USER(id) ON DELETE CASCADE
+                ) 
+                ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci`;
 
+                db.query(createTodos24, function(err, results, fields) {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                    console.log('ROLES table created');
+                });
 
                 db.end(function(err) {
                     if (err) {

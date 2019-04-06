@@ -25,49 +25,39 @@ var upload1 = multer({
     storage: storage,
 }).single('file');
 
-router.get('/',function(req, res, next){
-        console.log('Entered Access_controll');
-        var role="Guest";
-        console.log(role);
-        if(req.user !=null)
-        {
-            connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-                if(err1 || rows1.length === 0) {
-                    console.log(err1);
-                    res.redirect('/users/login')
-        
-                }
-                else {
-                    console.log(rows1[0].role);
-                    role= rows1[0].role;
-                   
-                    if(check_permission(role,"I_HOME_READ"))
-                    {
-                        next();
-                    }
-                    else{
-                        res.send("Access Permission Denied");
-                    }
-                    }
-                });
-            console.log(role);
-        }
-        else{
-                    if(check_permission(role,"I_HOME_READ"))
-                    {
-                        next();
-                    }
-                    else{
-                        res.send("Access Permission Denied");
-                    }
-            }
-        
-      
-        }, function(req, res){
-    console.log('ashdgasgdhsad');
+router.get('/', function(req,res,next){
+                             var id=-1;
+                             if(req.user)
+                               id=req.user;
+                               connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
+                                if(err2) {
+                                   console.log(err2);
+                                  
+                          
+                                }
+                                else {
+
+                                    check=check_permission(rows3,"I_HOME","read");
+                                  
+                                    if(check==1)
+                                      {
+                                       next();
+                                      }
+                                      else res.send("Access to page denied");
+                                 
+                                   
+
+                                }
+                            
+                              });
+                            
+                             }
+                              
+                              ,function(req, res){
+
     if(req.user) {
             var g = 'Instructor';
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, g] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1 || rows1.length === 0) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -81,7 +71,7 @@ router.get('/',function(req, res, next){
 
                     }
                     else {
-                        console.log(rows1[0]);
+                     
 
                         res.render('instructor/home',{'user':rows1[0], 'instructor': rows2[0],  messages: req.flash('info')});
                     }
@@ -98,46 +88,7 @@ router.get('/',function(req, res, next){
 
 
 
-
 router.post('/profile',function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_PROFILE_WRITE"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_PROFILE_WRITE"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    },function(req, res, next){
     if(req.user){
 
 
@@ -157,13 +108,13 @@ router.post('/profile',function(req, res, next){
             var Last_Name = req.body.lname;
 
 
-            connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+            connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
                 if(err1) {
                     console.log(err1);
                     res.redirect('/users/login')
 
                 }
-                else if(rows1[0].role === 'Instructor') {
+                else {
                     connection.query("UPDATE INSTRUCTOR SET First_Name = ?, Middle_Name = ?, Last_Name = ? WHERE User_id = ?  ",[First_Name, Middle_Name, Last_Name,req.user] ,function(err2,rows2){
                         if(err2) {
                             console.log(err2);
@@ -191,47 +142,9 @@ router.post('/profile',function(req, res, next){
 
 
 
-router.get('/profile', function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_PROFILE_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_PROFILE_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    },function(req, res, next) {
+router.get('/profile', function(req, res, next) {
     if(req.user){
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -259,48 +172,10 @@ router.get('/profile', function(req, res, next){
 });
 
 
-router.post('/offer-course',function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_OFFER_COURSE_WRITE"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_OFFER_COURSE_WRITE"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    }, function(req, res){
+router.post('/offer-course', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -359,48 +234,10 @@ router.post('/offer-course',function(req, res, next){
 
 
 
-router.get('/courses', function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_COURSES_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_COURSES_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    },function(req, res){
+router.get('/courses',function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -437,48 +274,10 @@ router.get('/courses', function(req, res, next){
 });
 
 
-router.get('/course-details/:id',function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_COURSE_DEATAILS_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_COURSE_DEATAILS_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    }, function(req, res){
+router.get('/course-details/:id',function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -527,48 +326,10 @@ router.get('/course-details/:id',function(req, res, next){
 
 
 
-router.post('/course-details/:id', function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_COURSE_DEATAILS_WRITE"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_COURSE_DEATAILS_WRITE"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    },function(req, res){
+router.post('/course-details/:id',function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -627,48 +388,10 @@ router.post('/course-details/:id', function(req, res, next){
 
 
 
-router.get('/offer-course',  function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_OFFER_COURSE_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_OFFER_COURSE_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    },function(req, res){
+router.get('/offer-course', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -697,48 +420,10 @@ router.get('/offer-course',  function(req, res, next){
 
 
 
-router.get('/course/announcement/:id1/:id2',  function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_ANNOUNCEMENT_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_ANNOUNCEMENT_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    },function(req, res){
+router.get('/course/announcement/:id1/:id2', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -799,48 +484,10 @@ router.get('/course/announcement/:id1/:id2',  function(req, res, next){
 
 
 
-router.post('/course/announcement/:id',function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_ANNOUNCEMENT_WRITE"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_ANNOUNCEMENT_WRITE"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    }, function(req, res){
+router.post('/course/announcement/:id',function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -896,48 +543,10 @@ router.post('/course/announcement/:id',function(req, res, next){
 });
 
 
-router.get('/course/:course_id/resources/',function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_RESOURCES_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_RESOURCES_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    }, function(req, res){
+router.get('/course/:course_id/resources/', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -994,45 +603,7 @@ router.get('/course/:course_id/resources/',function(req, res, next){
 });
 
 
-router.post('/course/:course_id/resources/',function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_RESOURCES_WRITE"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_RESOURCES_WRITE"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    }, function (req, res) {
+router.post('/course/:course_id/resources/', function (req, res) {
     console.log('bbbnvnb');
     upload1(req, res, function (err) {
         if (err instanceof multer.MulterError) {
@@ -1048,7 +619,7 @@ router.post('/course/:course_id/resources/',function(req, res, next){
         // Everything went fine.
         if(req.user) {
 
-            connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+            connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
                 if(err1) {
                     console.log(err1);
                     res.redirect('/users/login')
@@ -1102,49 +673,11 @@ router.post('/course/:course_id/resources/',function(req, res, next){
     });
 });
 
-router.get('/course/:course_id/resources/:resource_id', function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_RESOURCE_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_RESOURCE_READ"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    },function (req, res) {
+router.get('/course/:course_id/resources/:resource_id', function (req, res) {
 
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1191,49 +724,11 @@ router.get('/course/:course_id/resources/:resource_id', function(req, res, next)
     }
 });
 
-router.get('/course/:course_id/resources/:resource_id/delete',function(req, res, next){
-    console.log('Entered Access_controll');
-    var role="Guest";
-    console.log(role);
-    if(req.user !=null)
-    {
-        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
-            if(err1 || rows1.length === 0) {
-                console.log(err1);
-                res.redirect('/users/login')
-    
-            }
-            else {
-                console.log(rows1[0].role);
-                role= rows1[0].role;
-               
-                if(check_permission(role,"I_RESOURCE_DELETE"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-                }
-            });
-        console.log(role);
-    }
-    else{
-                if(check_permission(role,"I_RESOURCE_DELETE"))
-                {
-                    next();
-                }
-                else{
-                    res.send("Access Permission Denied");
-                }
-        }
-    
-  
-    }, function (req, res) {
+router.get('/course/:course_id/resources/:resource_id/delete', function (req, res) {
 
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1313,7 +808,7 @@ router.get('/course/:course_id/tests/', function(req, res){
     console.log('aasgshdggf');
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1399,7 +894,7 @@ router.get('/course/:course_id/tests/', function(req, res){
 router.get('/course/:course_id/tests/:test_id/edit', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1483,7 +978,7 @@ router.post('/course/:course_id/tests/:test_id/edit', function (req, res) {
         // Everything went fine.
         if(req.user) {
 
-            connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+            connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
                 if(err1) {
                     console.log(err1);
                     res.redirect('/users/login')
@@ -1587,7 +1082,7 @@ router.post('/course/:course_id/tests/', function (req, res) {
 
         if(req.user) {
 
-            connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+            connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
                 if(err1) {
                     console.log(err1);
                     res.redirect('/users/login')
@@ -1639,7 +1134,7 @@ router.get('/course/:course_id/tests/:test_id/question', function (req, res) {
 
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1691,7 +1186,7 @@ router.get('/course/:course_id/tests/:test_id/answer', function (req, res) {
 
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1744,7 +1239,7 @@ router.get('/course/:course_id/tests/:test_id/delete', function (req, res) {
 
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1831,7 +1326,7 @@ router.get('/course/:course_id/tests/:test_id/delete', function (req, res) {
 router.get('/course/:course_id/tests/:test_id/results', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -1921,7 +1416,7 @@ router.get('/course/:course_id/tests/:test_id/results', function(req, res){
 router.post('/course/:course_id/tests/:test_id/results', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -2044,7 +1539,7 @@ router.post('/course/:course_id/tests/:test_id/results', function(req, res){
 router.get('/course/:course_id/assignments/', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -2119,7 +1614,7 @@ router.post('/course/:course_id/assignments/', function (req, res) {
         // Everything went fine.
         if(req.user) {
 
-            connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+            connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
                 if(err1) {
                     console.log(err1);
                     res.redirect('/users/login')
@@ -2181,7 +1676,7 @@ router.get('/course/:course_id/assignments/:assignment_id', function (req, res) 
 
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -2233,7 +1728,7 @@ router.get('/course/:course_id/assignments/:assignment_id/delete', function (req
 
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -2315,7 +1810,7 @@ router.get('/course/:course_id/assignments/:assignment_id/delete', function (req
 router.get('/course/:course_id/assignment/:assignment_id/submissions', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -2379,7 +1874,7 @@ router.get('/course/:course_id/assignment/:assignment_id/submissions', function(
 router.get('/course/:course_id/students', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -2489,7 +1984,7 @@ router.get('/course/:course_id/students', function(req, res){
 router.get('/course/:course_id/:student_id/approve', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -2607,7 +2102,7 @@ router.get('/course/:course_id/:student_id/approve', function(req, res){
 router.get('/course/:course_id/assistants', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -2697,7 +2192,7 @@ router.get('/course/:course_id/assistants', function(req, res){
 router.get('/course/:course_id/:assistant_id/approve2', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -2795,7 +2290,7 @@ router.get('/course/:course_id/:assistant_id/approve2', function(req, res){
 router.get('/course/:course_id/qa', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -2889,7 +2384,7 @@ router.get('/course/:course_id/qa', function(req, res){
 router.post('/course/:course_id/qa', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -2952,7 +2447,7 @@ router.post('/course/:course_id/qa', function(req, res){
 router.post('/course/:course_id/:question_id/', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -3012,7 +2507,7 @@ router.post('/course/:course_id/:question_id/', function(req, res){
 router.get('/course/:course_id/assignment/:submission_id/submission', function (req, res) {
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -3082,7 +2577,7 @@ router.get('/course/:course_id/assignment/:submission_id/submission', function (
 router.get('/course/:course_id/announcements/', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -3134,7 +2629,7 @@ router.post('/course/add/:course_id/attendence/', function(req, res){
     console.log('dsdadghsafdsfd');
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -3289,7 +2784,7 @@ router.post('/course/add/:course_id/attendence/', function(req, res){
 router.get('/course/:course_id/attendence/', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -3362,7 +2857,7 @@ router.get('/course/:course_id/attendence/:id/details', function(req, res){
     console.log(req.params.id)
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -3453,7 +2948,7 @@ router.get('/course/:course_id/attendence/:id/details', function(req, res){
 router.get('/course/:course_id/add_attendence/', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -3529,7 +3024,7 @@ router.get('/course/:course_id/add_attendence/', function(req, res){
 router.post('/course/:course_id/:question_id/:answer_id', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -3590,7 +3085,7 @@ router.post('/course/:course_id/:question_id/:answer_id', function(req, res){
 router.get('/course/:course_id/exams/', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -3645,7 +3140,7 @@ router.get('/course/:course_id/exams/', function(req, res){
 router.get('/course/:course_id/add_exam/', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -3691,7 +3186,7 @@ router.get('/course/:course_id/add_exam/', function(req, res){
 router.post('/course/add/exam/:course_id/add_exam/', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -3834,7 +3329,7 @@ router.post('/course/add/exam/:course_id/add_exam/', function(req, res){
 router.get('/course/:course_id/exams/:exam_id/', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -3910,7 +3405,7 @@ router.get('/course/:course_id/exams/:exam_id/', function(req, res){
 router.get('/course/:course_id/exams/:exam_id/:student_id', function(req, res){
     if(req.user) {
 
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, 'Instructor'] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -4001,6 +3496,125 @@ router.get('/course/:course_id/exams/:exam_id/:student_id', function(req, res){
         return res.redirect('/users/login')
     }
 });
+
+
+
+
+router.get('/all', function(req,res,next){
+    var id=-1;
+    if(req.user)
+      id=req.user;
+      connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
+       if(err2) {
+          console.log(err2);
+         
+ 
+       }
+       else {
+
+           check=check_permission(rows3,"I_ALL","read");
+         
+           if(check==1)
+             {
+              next();
+             }
+             else res.send("Access to page denied");
+        
+          
+
+       }
+   
+     });
+   
+    }
+     
+     ,function(req, res){
+    if(req.user) {
+
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
+            if(err1) {
+                console.log(err1);
+                res.redirect('/users/login')
+
+            }
+            else {
+                connection.query("SELECT * FROM INSTRUCTOR WHERE User_id = ?  ",req.user ,function(err2,rows2){
+                    if(err2) {
+                        console.log(err2);
+                        res.redirect('/users/login')
+
+                    }
+                    else {
+                       res.send("all");
+
+                    }
+                });
+            }
+        });
+    }
+    else{
+        return res.redirect('/users/login')
+    }
+});
+
+router.get('/messages', function(req, res){
+    if(req.user) {
+
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
+            if(err1) {
+                console.log(err1);
+                res.redirect('/users/login')
+
+            }
+            else {
+                connection.query("SELECT * FROM INSTRUCTOR WHERE User_id = ?  ",req.user ,function(err2,rows2){
+                    if(err2) {
+                        console.log(err2);
+                        res.redirect('/users/login')
+
+                    }
+                    else {
+                       res.send("messages");
+
+                    }
+                });
+            }
+        });
+    }
+    else{
+        return res.redirect('/users/login')
+    }
+});
+
+router.post('/messages', function(req, res){
+    if(req.user) {
+
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
+            if(err1) {
+                console.log(err1);
+                res.redirect('/users/login')
+
+            }
+            else {
+                connection.query("SELECT * FROM INSTRUCTOR WHERE User_id = ?  ",req.user ,function(err2,rows2){
+                    if(err2) {
+                        console.log(err2);
+                        res.redirect('/users/login')
+
+                    }
+                    else {
+                       res.send("message");
+
+                    }
+                });
+            }
+        });
+    }
+    else{
+        return res.redirect('/users/login')
+    }
+});
+
 
 
 module.exports = router;

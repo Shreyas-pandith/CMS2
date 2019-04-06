@@ -20,7 +20,7 @@ router.get('/', function(req, res, next){
     
     if(req.user) {
             var g = 'Assistant';
-        connection.query("SELECT * FROM USER WHERE id = ? AND Role = ?",[req.user, g] ,function(err1,rows1){
+        connection.query("SELECT * FROM USER WHERE id = ? ",req.user ,function(err1,rows1){
             if(err1 || rows1.length === 0) {
                 console.log(err1);
                 res.redirect('/users/login')

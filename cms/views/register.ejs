@@ -190,10 +190,18 @@
                         </div>
                         <div class="form-group">
                             <label for="recipient-name1" class="col-form-label">I am </label>
+                           
                             <select class="form-control" name="role">
-                                <option value="Student">Student</option>
-                                <option value="Instructor">Instructor</option>
-                                <option value="Assistant">Teaching Assistant</option>
+
+                                    <optgroup label="Student">
+                                            <option value=0>Student</option>
+                                            <option value=1>Class Reprsentative</option>
+                                          </optgroup>
+                                          <optgroup label="Instructor">
+                                            <option value=2>Instructor</option>
+                                            <option value=3>HOD</option>
+                                          </optgroup>
+                                <option value=4>Teaching Assistant</option>
                             </select>
                         </div>
                         <div class="right-w3l mt-4 mb-3">

@@ -69,7 +69,6 @@ router.post('/register', function(req, res, next) {
                 'email': req.body.email,
                 'password': hash,
                 'created': today,
-                'role': req.body.role
             };
 
 
@@ -92,51 +91,198 @@ router.post('/register', function(req, res, next) {
 
                         var data;
 
-                        if(role === 'Student'){
+                        if(role ==0){
                             sql = "INSERT INTO STUDENT SET ?";
                             data = {
                                 'User_id' : user_id,
                                 'Roll_Number' : 'ROLLNO' + 10000 + user_id
                             };
+                            db.query(sql, data, function(err2,rows2){
+                                if(err2) {
+                                    console.log(err2);
+    
+                                    db.query("DELETE FROM USER WHERE id = ?", user_id, function(err3,rows2){
+                                        if(err3) {
+                                            console.log(err3);
+                                            res.redirect('/users/register')
+                                        }
+                                        else {
+                                            res.redirect('/users/register')
+                                        }
+                                    });
+    
+                                }
+                                else {  data = {
+                                                    'User_id' : user_id,
+                                                    'role' : 'Student'
+                                                };
+                                        db.query("INSERT INTO ROLES SET ?",data,function(err3,rows3){
+
+                                        });
+                                    //return res.redirect('/users/login/');
+                                    req.flash('Successfully Registered.Please Login');
+                                    //next();
+                                    return res.render('login')
+    
+                                }
+                            });
                         }
-                        else if(role === 'Instructor') {
+                        else if(role ==1) {
+                            sql = "INSERT INTO STUDENT SET ?";
+                            data = {
+                                'User_id' : user_id,
+                                'Roll_Number' : 'ROLLNO' + 10000 + user_id
+                            };
+                            db.query(sql, data, function(err2,rows2){
+                                if(err2) {
+                                    console.log(err2);
+    
+                                    db.query("DELETE FROM USER WHERE id = ?", user_id, function(err3,rows2){
+                                        if(err3) {
+                                            console.log(err3);
+                                            res.redirect('/users/register')
+                                        }
+                                        else {
+                                            res.redirect('/users/register')
+                                        }
+                                    });
+    
+                                }
+                                else {  data = {
+                                                    'User_id' : user_id,
+                                                    'role' : 'Student'
+                                                };
+                                        db.query("INSERT INTO ROLES SET ?",data,function(err3,rows3){
+                                            data = {
+                                                'User_id' : user_id,
+                                                'role' : 'CR'
+                                            };
+                                            db.query("INSERT INTO ROLES SET ?",data,function(err4,rows4){
+                                              
+                                            }); 
+                                        });
+                                    //return res.redirect('/users/login/');
+                                    req.flash('Successfully Registered.Please Login');
+                                    //next();
+                                    return res.render('login')
+    
+                                }
+                            });
+                        } else if(role ==2) {
                             sql = "INSERT INTO INSTRUCTOR SET ?";
                             data = {
                                 'User_id' : user_id
                             };
-                        }
-                        else {
+                            db.query(sql, data, function(err2,rows2){
+                                if(err2) {
+                                    console.log(err2);
+    
+                                    db.query("DELETE FROM USER WHERE id = ?", user_id, function(err3,rows2){
+                                        if(err3) {
+                                            console.log(err3);
+                                            res.redirect('/users/register')
+                                        }
+                                        else {
+                                            res.redirect('/users/register')
+                                        }
+                                    });
+    
+                                }
+                                else {  data = {
+                                                    'User_id' : user_id,
+                                                    'role' : 'Instructor'
+                                                };
+                                        db.query("INSERT INTO ROLES SET ?",data,function(err3,rows3){
+                                          
+                                        });
+                                    //return res.redirect('/users/login/');
+                                    req.flash('Successfully Registered.Please Login');
+                                    //next();
+                                    return res.render('login')
+    
+                                }
+                            });
+                        } else if(role ==3) {
+                            sql = "INSERT INTO INSTRUCTOR SET ?";
+                            data = {
+                                'User_id' : user_id
+                            };
+                            db.query(sql, data, function(err2,rows2){
+                                if(err2) {
+                                    console.log(err2);
+    
+                                    db.query("DELETE FROM USER WHERE id = ?", user_id, function(err3,rows2){
+                                        if(err3) {
+                                            console.log(err3);
+                                            res.redirect('/users/register')
+                                        }
+                                        else {
+                                            res.redirect('/users/register')
+                                        }
+                                    });
+    
+                                }
+                                else {  data = {
+                                                    'User_id' : user_id,
+                                                    'role' : 'Instructor'
+                                                };
+                                        db.query("INSERT INTO ROLES SET ?",data,function(err3,rows3){
+                                            data = {
+                                                'User_id' : user_id,
+                                                'role' : 'HOD'
+                                            };
+                                            db.query("INSERT INTO ROLES SET ?",data,function(err4,rows4){
+                                              
+                                            }); 
+                                        });
+                                    //return res.redirect('/users/login/');
+                                    req.flash('Successfully Registered.Please Login');
+                                    //next();
+                                    return res.render('login')
+    
+                                }
+                            });
+                        } else if(role ==4) {
                             sql = "INSERT INTO ASSISTANT SET ?";
                             data = {
                                 'User_id' : user_id
                             };
+                            db.query(sql, data, function(err2,rows2){
+                                if(err2) {
+                                    console.log(err2);
+    
+                                    db.query("DELETE FROM USER WHERE id = ?", user_id, function(err3,rows2){
+                                        if(err3) {
+                                            console.log(err3);
+                                            res.redirect('/users/register')
+                                        }
+                                        else {
+                                            res.redirect('/users/register')
+                                        }
+                                    });
+    
+                                }
+                                else {  data = {
+                                                    'User_id' : user_id,
+                                                    'role' : 'Assistant'
+                                                };
+                                        db.query("INSERT INTO ROLES SET ?",data,function(err3,rows3){
+                                           
+                                            db.query("INSERT INTO ROLES SET ?",data,function(err4,rows4){
+                                              
+                                            }); 
+                                        });
+                                    //return res.redirect('/users/login/');
+                                    req.flash('Successfully Registered.Please Login');
+                                    //next();
+                                    return res.render('login')
+    
+                                }
+                            });
                         }
+                       
 
-
-                        db.query(sql, data, function(err2,rows2){
-                            if(err2) {
-                                console.log(err2);
-
-                                db.query("DELETE FROM USER WHERE id = ?", user_id, function(err3,rows2){
-                                    if(err3) {
-                                        console.log(err3);
-                                        res.redirect('/users/register')
-                                    }
-                                    else {
-                                        res.redirect('/users/register')
-                                    }
-                                });
-
-                            }
-                            else {
-
-                                //return res.redirect('/users/login/');
-                                req.flash('Successfully Registered.Please Login');
-                                //next();
-                                return res.render('login')
-
-                            }
-                        });
+                       
 
                     });
                 } else {
@@ -304,23 +450,35 @@ router.post('/login',
 
             }
             else {
-                var role = rows2[0].role;
+                db.query("SELECT * FROM ROLES WHERE User_id = ?", [ rows2[0].id], function(err, rows) {
+                    if (err) {
+                        console.log(err);
+                        console.log('o');
+                        return res.redirect('/users/login/')
 
-                if (role === 'Student'){
-                    res.redirect('/student/');
-                }
-                else if(role === 'Instructor'){
-                    req.flash('info', 'Succesfully Logged In.');
-                    res.redirect('/instructor/');
-                }
-                else if(role === 'Assistant'){
-                    req.flash('info', 'Succesfully Logged In.');
-                    res.redirect('/assistant/');
-                }
-                else{
-                    req.flash('User Does not Exists');
-                    res.redirect('/users/login/');
-                }
+                    } else {
+                           console.log('ko');
+                        var role = rows[0].role;
+
+                        if (role === 'Student' || role ==='CR'){
+                            res.redirect('/student/');
+                        }
+                        else if(role === 'Instructor' || role ==='HOD'){
+                            req.flash('info', 'Succesfully Logged In.');
+                            res.redirect('/instructor/');
+                        }
+                        else if(role === 'Assistant'){
+                            req.flash('info', 'Succesfully Logged In.');
+                            res.redirect('/assistant/');
+                        }
+                        else{
+                            req.flash('User Does not Exists');
+                            res.redirect('/users/login/');
+                        }
+                       
+                    }
+                });
+                
             }
         });
 
