@@ -1,6 +1,7 @@
 var RP=require('./policy.js');
 var permissions=require('./permissions.js');
 var connection=require('./db.js');
+var H=require('./heirarchy.js');
 function sendvalue(rows3,object,action)
 {  var roles=[];
    console.log('okj');
@@ -32,13 +33,25 @@ function sendvalue(rows3,object,action)
                       console.log(permission.permission)
                       
                       for(i=0;i<roles.length;i++)
-                      {
+                      { 
+                         for(j=0;j<H[roles[i]].children.length;j++)
+                         {
+                            roles.push(H[roles[i]].children[j]);
+                         }
+                     
+                        
+                      }
+                      console.log('roles : '+roles);
+                      
+                      for(i=0;i<roles.length;i++)
+                      { role=roles[i];
                         if(RP[roles[i]] && RP[roles[i]].permissions.indexOf(permission.permission) != -1)
                         {
                         
                           console.log("yes");
                           return 1;
                         }
+                        
                         
                       }
                       console.log("no");

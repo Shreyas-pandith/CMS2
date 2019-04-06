@@ -7,7 +7,27 @@ var check_permission=require('../access_control.js');
 
 
 
-router.get('/', function(req, res, next){
+router.get('/', function(req,res,next){
+                                var id=-1;
+                                if(req.user)
+                                id=req.user;
+                                var object="";
+                                var action="";
+                                connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
+                                if(err2) {
+                                    console.log(err2);
+                                }
+                                else {
+                                    check=check_permission(rows3,object,action);
+                                    if(check==1)
+                                        {
+                                        next();
+                                        }
+                                        else res.send("Access to page denied");
+                                }
+                                });
+
+                                },function(req, res, next){
     console.log('hy');
         if(check_permission("Assistant","A_HOME"))
         {
@@ -50,9 +70,29 @@ router.get('/', function(req, res, next){
 
 
 
-router.get('/profile', function(req, res, next) {
-    if(req.user){
-        connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
+router.get('/profile', function(req,res,next){
+                            var id=-1;
+                            if(req.user)
+                            id=req.user;
+                            var object="";
+                            var action="";
+                            connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
+                            if(err2) {
+                                console.log(err2);
+                            }
+                            else {
+                                check=check_permission(rows3,object,action);
+                                if(check==1)
+                                    {
+                                    next();
+                                    }
+                                    else res.send("Access to page denied");
+                            }
+                            });
+
+                            },function(req, res, next) {
+                            if(req.user){
+                                connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
             if(err1) {
                 console.log(err1);
                 res.redirect('/users/login')
@@ -80,8 +120,28 @@ router.get('/profile', function(req, res, next) {
 });
 
 
-router.post('/profile', function(req, res){
-    if(req.user){
+router.post('/profile',function(req,res,next){
+                            var id=-1;
+                            if(req.user)
+                            id=req.user;
+                            var object="";
+                            var action="";
+                            connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
+                            if(err2) {
+                                console.log(err2);
+                            }
+                            else {
+                                check=check_permission(rows3,object,action);
+                                if(check==1)
+                                    {
+                                    next();
+                                    }
+                                    else res.send("Access to page denied");
+                            }
+                            });
+
+                            }, function(req, res){
+                            if(req.user){
 
 
         req.checkBody('phone', 'Phone Number is Not Valid').isNumeric();
@@ -123,7 +183,27 @@ router.post('/profile', function(req, res){
 
 
 
-router.post('/search', function(req, res, next) {
+router.post('/search', function(req,res,next){
+                                var id=-1;
+                                if(req.user)
+                                id=req.user;
+                                var object="";
+                                var action="";
+                                connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
+                                if(err2) {
+                                    console.log(err2);
+                                }
+                                else {
+                                    check=check_permission(rows3,object,action);
+                                    if(check==1)
+                                        {
+                                        next();
+                                        }
+                                        else res.send("Access to page denied");
+                                }
+                                });
+
+    },function(req, res, next) {
 
     if(req.user) {
 
@@ -168,7 +248,27 @@ router.post('/search', function(req, res, next) {
 });
 
 
-router.get('/search/instructor/:id', function(req, res, next) {
+router.get('/search/instructor/:id', function(req,res,next){
+                                                var id=-1;
+                                                if(req.user)
+                                                id=req.user;
+                                                var object="";
+                                                var action="";
+                                                connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
+                                                if(err2) {
+                                                    console.log(err2);
+                                                }
+                                                else {
+                                                    check=check_permission(rows3,object,action);
+                                                    if(check==1)
+                                                        {
+                                                        next();
+                                                        }
+                                                        else res.send("Access to page denied");
+                                                }
+                                                });
+
+    },function(req, res, next) {
 
     connection.query(" SELECT * from INSTRUCTOR WHERE Instructor_id= ? ",req.params.id,function(err1,row){
         if(err1) {
@@ -182,7 +282,27 @@ router.get('/search/instructor/:id', function(req, res, next) {
 
 });
 
-router.get('/search/course/:id', function(req, res, next) {
+router.get('/search/course/:id', function(req,res,next){
+                                        var id=-1;
+                                        if(req.user)
+                                        id=req.user;
+                                        var object="";
+                                        var action="";
+                                        connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
+                                        if(err2) {
+                                            console.log(err2);
+                                        }
+                                        else {
+                                            check=check_permission(rows3,object,action);
+                                            if(check==1)
+                                                {
+                                                next();
+                                                }
+                                                else res.send("Access to page denied");
+                                        }
+                                        });
+
+                                        },function(req, res, next) {
 
     if(req.user) {
 
@@ -236,7 +356,27 @@ router.get('/search/course/:id', function(req, res, next) {
 
 
 
-router.get('/course/join', function(req, res, next) {
+router.get('/course/join',function(req,res,next){
+                                var id=-1;
+                                if(req.user)
+                                id=req.user;
+                                var object="";
+                                var action="";
+                                connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
+                                if(err2) {
+                                    console.log(err2);
+                                }
+                                else {
+                                    check=check_permission(rows3,object,action);
+                                    if(check==1)
+                                        {
+                                        next();
+                                        }
+                                        else res.send("Access to page denied");
+                                }
+                                });
+
+                                }, function(req, res, next) {
 
     if(req.user) {
 
@@ -281,7 +421,27 @@ router.get('/course/join', function(req, res, next) {
 
 
 
-router.get('/course/:id/join', function(req, res, next) {
+router.get('/course/:id/join',function(req,res,next){
+                                    var id=-1;
+                                    if(req.user)
+                                    id=req.user;
+                                    var object="";
+                                    var action="";
+                                    connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
+                                    if(err2) {
+                                        console.log(err2);
+                                    }
+                                    else {
+                                        check=check_permission(rows3,object,action);
+                                        if(check==1)
+                                            {
+                                            next();
+                                            }
+                                            else res.send("Access to page denied");
+                                    }
+                                    });
+
+                                    }, function(req, res, next) {
 
     if(req.user) {
 
@@ -329,8 +489,28 @@ router.get('/course/:id/join', function(req, res, next) {
 
 
 
-router.get('/courses', function(req, res){
-    if(req.user) {
+router.get('/courses',function(req,res,next){
+                            var id=-1;
+                            if(req.user)
+                            id=req.user;
+                            var object="";
+                            var action="";
+                            connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
+                            if(err2) {
+                                console.log(err2);
+                            }
+                            else {
+                                check=check_permission(rows3,object,action);
+                                if(check==1)
+                                    {
+                                    next();
+                                    }
+                                    else res.send("Access to page denied");
+                            }
+                            });
+
+                            }, function(req, res){
+                            if(req.user) {
 
         connection.query("SELECT * FROM USER WHERE id = ?",req.user ,function(err1,rows1){
             if(err1) {
