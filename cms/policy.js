@@ -25,7 +25,8 @@ let RP = {
         permissions: ['P61']
     },
     Assistant: {
-        permissions: []
+        permissions: ['P94','P95','P96','P97','P98','P99','P100',
+                      'P101','P102']
     },
     Guest: {
         permissions: ['P51','P52','P53','P54','P55','P56','P57','P58']

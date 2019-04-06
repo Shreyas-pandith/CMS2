@@ -11,8 +11,8 @@ router.get('/', function(req,res,next){
                                 var id=-1;
                                 if(req.user)
                                 id=req.user;
-                                var object="";
-                                var action="";
+                                var object="A_HOME";
+                                var action="read";
                                 connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
                                 if(err2) {
                                     console.log(err2);
@@ -74,8 +74,8 @@ router.get('/profile', function(req,res,next){
                             var id=-1;
                             if(req.user)
                             id=req.user;
-                            var object="";
-                            var action="";
+                            var object="A_PROFILE";
+                            var action="read";
                             connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
                             if(err2) {
                                 console.log(err2);
@@ -124,8 +124,8 @@ router.post('/profile',function(req,res,next){
                             var id=-1;
                             if(req.user)
                             id=req.user;
-                            var object="";
-                            var action="";
+                            var object="A_PROFILE";
+                            var action="write";
                             connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
                             if(err2) {
                                 console.log(err2);
@@ -187,8 +187,8 @@ router.post('/search', function(req,res,next){
                                 var id=-1;
                                 if(req.user)
                                 id=req.user;
-                                var object="";
-                                var action="";
+                                var object="A_SEARCH";
+                                var action="write";
                                 connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
                                 if(err2) {
                                     console.log(err2);
@@ -252,8 +252,8 @@ router.get('/search/instructor/:id', function(req,res,next){
                                                 var id=-1;
                                                 if(req.user)
                                                 id=req.user;
-                                                var object="";
-                                                var action="";
+                                                var object="A_SEARCH_INST";
+                                                var action="read";
                                                 connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
                                                 if(err2) {
                                                     console.log(err2);
@@ -286,8 +286,8 @@ router.get('/search/course/:id', function(req,res,next){
                                         var id=-1;
                                         if(req.user)
                                         id=req.user;
-                                        var object="";
-                                        var action="";
+                                        var object="A_SEARCH";
+                                        var action="read";
                                         connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
                                         if(err2) {
                                             console.log(err2);
@@ -360,8 +360,8 @@ router.get('/course/join',function(req,res,next){
                                 var id=-1;
                                 if(req.user)
                                 id=req.user;
-                                var object="";
-                                var action="";
+                                var object="A_JOIN_COURSE";
+                                var action="read";
                                 connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
                                 if(err2) {
                                     console.log(err2);
@@ -425,8 +425,8 @@ router.get('/course/:id/join',function(req,res,next){
                                     var id=-1;
                                     if(req.user)
                                     id=req.user;
-                                    var object="";
-                                    var action="";
+                                    var object="A_JOIN_COURSE";
+                                    var action="join";
                                     connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
                                     if(err2) {
                                         console.log(err2);
@@ -493,8 +493,8 @@ router.get('/courses',function(req,res,next){
                             var id=-1;
                             if(req.user)
                             id=req.user;
-                            var object="";
-                            var action="";
+                            var object="A_COURSES";
+                            var action="read";
                             connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
                             if(err2) {
                                 console.log(err2);
