@@ -601,6 +601,39 @@ function connectDatabase() {
                     console.log('ROLES table created');
                 });
 
+                let createTodos25 = `CREATE TABLE if not exists P
+                (
+                    permission VARCHAR(255),
+                    object VARCHAR(255),  
+                    action VARCHAR(255), 
+                    PRIMARY KEY (action,object)
+                  
+                ) 
+                ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci`;
+
+                db.query(createTodos25, function(err, results, fields) {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                    console.log('ROLES table created');
+                });
+                
+
+                let createTodos26 = `CREATE TABLE if not exists RP
+                (
+                    role VARCHAR(255),
+                    permission VARCHAR(255),  
+                    PRIMARY KEY (role,permission)
+                  
+                ) 
+                ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci`;
+
+                db.query(createTodos26, function(err, results, fields) {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                    console.log('ROLES table created');
+                });
                 db.end(function(err) {
                     if (err) {
                         return console.log(err.message);

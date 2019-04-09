@@ -878,7 +878,7 @@ router.get('/course/announcement/:id/:announcement_id', function(req,res,next){
                                                                 var id=-1;
                                                                 if(req.user)
                                                                 id=req.user;
-                                                                var object="S_ASSIGNMENT";
+                                                                var object="S_ANNOUNCEMENT";
                                                                 var action="read";
                                                                 connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
                                                                 if(err2) {

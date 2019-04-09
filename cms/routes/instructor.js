@@ -507,7 +507,7 @@ router.get('/offer-course', function(req,res,next){
                                         if(req.user)
                                         id=req.user;
                                         var object="OFFER_COURSE";
-                                        var action="write";
+                                        var action="read";
                                         connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
                                         if(err2) {
                                             console.log(err2);
@@ -3819,7 +3819,7 @@ router.post('/course/:course_id/:question_id/:answer_id', function(req,res,next)
                                                                 var id=-1;
                                                                 if(req.user)
                                                                 id=req.user;
-                                                                var object="I_ANSWER";
+                                                                var object="I_REPLY";
                                                                 var action="write";
                                                                 connection.query("SELECT * FROM ROLES WHERE User_id = ?",id ,function(err2,rows3){
                                                                 if(err2) {
