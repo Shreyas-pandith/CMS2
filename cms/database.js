@@ -634,6 +634,22 @@ function connectDatabase() {
                     }
                     console.log('ROLES table created');
                 });
+
+                let createTodos27 = `CREATE TABLE if not exists H
+                (
+                    role VARCHAR(255),
+                    child VARCHAR(255),  
+                    PRIMARY KEY (role,child)
+                  
+                ) 
+                ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci`;
+
+                db.query(createTodos27, function(err, results, fields) {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                    console.log('H table created');
+                });
                 db.end(function(err) {
                     if (err) {
                         return console.log(err.message);

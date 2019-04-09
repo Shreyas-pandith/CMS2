@@ -1,8 +1,8 @@
-var RP=require('./policy.js');
+/*var RP=require('./policy.js');
 var permissions=require('./permissions.js');
-var connection=require('./db.js');
-var H=require('./heirarchy.js');
-function sendvalue(rows3,object,action)
+var connection=require('./db.js'); */
+// var H=require('./heirarchy.js');
+function sendvalue(rows3,object,action,permissions,RP,H)
 {  var roles=[];
    console.log('okj');
   
@@ -34,9 +34,10 @@ function sendvalue(rows3,object,action)
                       
                       for(i=0;i<roles.length;i++)
                       { 
-                         for(j=0;j<H[roles[i]].children.length;j++)
-                         {
-                            roles.push(H[roles[i]].children[j]);
+                         for(j=0;j<H.length;j++)
+                         {  
+                            if(H[j].role===roles[i])
+                            roles.push(H[j].child);
                          }
                      
                         
@@ -45,17 +46,27 @@ function sendvalue(rows3,object,action)
                       
                       for(i=0;i<roles.length;i++)
                       { role=roles[i];
-                        if(RP[roles[i]] && RP[roles[i]].permissions.indexOf(permission.permission) != -1)
-                        {
                         
-                          console.log("yes");
-                          return 1;
-                        }
+                         for(j=0;j<RP.length;j++){
+                           // console.log(RP[j].role+" "+RP[j].permission);
+                           // console.log(role+" "+permission.permission);
+                              if(RP[j].role===role && RP[j].permission ===permission.permission)
+                               {
+                                 console.log("yes");
+                                 return 1;
+                               }
+                           }
+                        // if(RP[roles[i]] && RP[roles[i]].permissions.indexOf(permission.permission) != -1)
+                        // {
+                        
+                        //   console.log("yes");
+                        //   return 1;
+                        // }
                         
                         
                       }
                       console.log("no");
-                       return 0;
+                      return 0;
                      
                      
               

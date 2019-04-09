@@ -36,12 +36,39 @@ router.get('/', function(req,res,next){
                                    console.log(err2);
                                 }
                                 else {
-                                    check=check_permission(rows3,object,action);
-                                    if(check==1)
-                                      {
-                                       next();
-                                      }
-                                      else res.send("Access to page denied");
+                                    connection.query("SELECT * FROM P ",function(err2,rows4){
+                                        if(err2) {
+                                            console.log(err2);
+                                        }
+                                        else {
+                                            connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                if(err2) {
+                                                    console.log(err2);
+                                                }
+                                                else {
+                            
+                                                    connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                        if(err2) {
+                                                            console.log(err2);
+                                                        }
+                                                        else {
+                                    
+                                                              
+                                    
+                                                            check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                            if(check==1)
+                                                                {
+                                                                next();
+                                                                }
+                                                                else res.send("Access to page denied");
+                                                        }
+                                                        });
+                            
+                                                   
+                                                }
+                                                });
+                                        }
+                                        });
                                 }
                               });
                             
@@ -93,12 +120,39 @@ router.post('/profile',function(req,res,next){
                                     console.log(err2);
                                 }
                                 else {
-                                    check=check_permission(rows3,object,action);
-                                    if(check==1)
-                                        {
-                                        next();
+                                    connection.query("SELECT * FROM P ",function(err2,rows4){
+                                        if(err2) {
+                                            console.log(err2);
                                         }
-                                        else res.send("Access to page denied");
+                                        else {
+                                            connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                if(err2) {
+                                                    console.log(err2);
+                                                }
+                                                else {
+                            
+                                                    connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                        if(err2) {
+                                                            console.log(err2);
+                                                        }
+                                                        else {
+                                    
+                                                              
+                                    
+                                                            check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                            if(check==1)
+                                                                {
+                                                                next();
+                                                                }
+                                                                else res.send("Access to page denied");
+                                                        }
+                                                        });
+                            
+                                                   
+                                                }
+                                                });
+                                        }
+                                        });
                                 }
                                 });
                             
@@ -167,12 +221,39 @@ router.get('/profile',  function(req,res,next){
                                     console.log(err2);
                                 }
                                 else {
-                                    check=check_permission(rows3,object,action);
-                                    if(check==1)
-                                        {
-                                        next();
+                                    connection.query("SELECT * FROM P ",function(err2,rows4){
+                                        if(err2) {
+                                            console.log(err2);
                                         }
-                                        else res.send("Access to page denied");
+                                        else {
+                                            connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                if(err2) {
+                                                    console.log(err2);
+                                                }
+                                                else {
+                            
+                                                    connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                        if(err2) {
+                                                            console.log(err2);
+                                                        }
+                                                        else {
+                                    
+                                                              
+                                    
+                                                            check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                            if(check==1)
+                                                                {
+                                                                next();
+                                                                }
+                                                                else res.send("Access to page denied");
+                                                        }
+                                                        });
+                            
+                                                   
+                                                }
+                                                });
+                                        }
+                                        });
                                 }
                                 });
                             
@@ -217,12 +298,39 @@ router.post('/offer-course', function(req,res,next){
                                             console.log(err2);
                                         }
                                         else {
-                                            check=check_permission(rows3,object,action);
-                                            if(check==1)
-                                                {
-                                                next();
+                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                if(err2) {
+                                                    console.log(err2);
                                                 }
-                                                else res.send("Access to page denied");
+                                                else {
+                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                        if(err2) {
+                                                            console.log(err2);
+                                                        }
+                                                        else {
+                                    
+                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                if(err2) {
+                                                                    console.log(err2);
+                                                                }
+                                                                else {
+                                            
+                                                                      
+                                            
+                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                    if(check==1)
+                                                                        {
+                                                                        next();
+                                                                        }
+                                                                        else res.send("Access to page denied");
+                                                                }
+                                                                });
+                                    
+                                                           
+                                                        }
+                                                        });
+                                                }
+                                                });
                                         }
                                         });
                                     
@@ -299,12 +407,39 @@ router.get('/courses',function(req,res,next){
                                     console.log(err2);
                                 }
                                 else {
-                                    check=check_permission(rows3,object,action);
-                                    if(check==1)
-                                        {
-                                        next();
+                                    connection.query("SELECT * FROM P ",function(err2,rows4){
+                                        if(err2) {
+                                            console.log(err2);
                                         }
-                                        else res.send("Access to page denied");
+                                        else {
+                                            connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                if(err2) {
+                                                    console.log(err2);
+                                                }
+                                                else {
+                            
+                                                    connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                        if(err2) {
+                                                            console.log(err2);
+                                                        }
+                                                        else {
+                                    
+                                                              
+                                    
+                                                            check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                            if(check==1)
+                                                                {
+                                                                next();
+                                                                }
+                                                                else res.send("Access to page denied");
+                                                        }
+                                                        });
+                            
+                                                   
+                                                }
+                                                });
+                                        }
+                                        });
                                 }
                                 });
                             
@@ -359,12 +494,39 @@ router.get('/course-details/:id',function(req,res,next){
                                             console.log(err2);
                                         }
                                         else {
-                                            check=check_permission(rows3,object,action);
-                                            if(check==1)
-                                                {
-                                                next();
+                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                if(err2) {
+                                                    console.log(err2);
                                                 }
-                                                else res.send("Access to page denied");
+                                                else {
+                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                        if(err2) {
+                                                            console.log(err2);
+                                                        }
+                                                        else {
+                                    
+                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                if(err2) {
+                                                                    console.log(err2);
+                                                                }
+                                                                else {
+                                            
+                                                                      
+                                            
+                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                    if(check==1)
+                                                                        {
+                                                                        next();
+                                                                        }
+                                                                        else res.send("Access to page denied");
+                                                                }
+                                                                });
+                                    
+                                                           
+                                                        }
+                                                        });
+                                                }
+                                                });
                                         }
                                         });
                                     
@@ -431,12 +593,39 @@ router.post('/course-details/:id',function(req,res,next){
                                             console.log(err2);
                                         }
                                         else {
-                                            check=check_permission(rows3,object,action);
-                                            if(check==1)
-                                                {
-                                                next();
+                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                if(err2) {
+                                                    console.log(err2);
                                                 }
-                                                else res.send("Access to page denied");
+                                                else {
+                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                        if(err2) {
+                                                            console.log(err2);
+                                                        }
+                                                        else {
+                                    
+                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                if(err2) {
+                                                                    console.log(err2);
+                                                                }
+                                                                else {
+                                            
+                                                                      
+                                            
+                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                    if(check==1)
+                                                                        {
+                                                                        next();
+                                                                        }
+                                                                        else res.send("Access to page denied");
+                                                                }
+                                                                });
+                                    
+                                                           
+                                                        }
+                                                        });
+                                                }
+                                                });
                                         }
                                         });
                                     
@@ -513,12 +702,39 @@ router.get('/offer-course', function(req,res,next){
                                             console.log(err2);
                                         }
                                         else {
-                                            check=check_permission(rows3,object,action);
-                                            if(check==1)
-                                                {
-                                                next();
+                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                if(err2) {
+                                                    console.log(err2);
                                                 }
-                                                else res.send("Access to page denied");
+                                                else {
+                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                        if(err2) {
+                                                            console.log(err2);
+                                                        }
+                                                        else {
+                                    
+                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                if(err2) {
+                                                                    console.log(err2);
+                                                                }
+                                                                else {
+                                            
+                                                                      
+                                            
+                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                    if(check==1)
+                                                                        {
+                                                                        next();
+                                                                        }
+                                                                        else res.send("Access to page denied");
+                                                                }
+                                                                });
+                                    
+                                                           
+                                                        }
+                                                        });
+                                                }
+                                                });
                                         }
                                         });
                                     
@@ -565,12 +781,39 @@ router.get('/course/announcement/:id1/:id2', function(req,res,next){
                                                     console.log(err2);
                                                 }
                                                 else {
-                                                    check=check_permission(rows3,object,action);
-                                                    if(check==1)
-                                                        {
-                                                        next();
+                                                    connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                        if(err2) {
+                                                            console.log(err2);
                                                         }
-                                                        else res.send("Access to page denied");
+                                                        else {
+                                                            connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                if(err2) {
+                                                                    console.log(err2);
+                                                                }
+                                                                else {
+                                            
+                                                                    connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                              
+                                                    
+                                                                            check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                            if(check==1)
+                                                                                {
+                                                                                next();
+                                                                                }
+                                                                                else res.send("Access to page denied");
+                                                                        }
+                                                                        });
+                                            
+                                                                   
+                                                                }
+                                                                });
+                                                        }
+                                                        });
                                                 }
                                                 });
                                             
@@ -649,12 +892,39 @@ router.post('/course/announcement/:id',function(req,res,next){
                                                                             console.log(err2);
                                                                         }
                                                                         else {
-                                                                            check=check_permission(rows3,object,action);
-                                                                            if(check==1)
-                                                                                {
-                                                                                next();
+                                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
                                                                                 }
-                                                                                else res.send("Access to page denied");
+                                                                                else {
+                                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                                        if(err2) {
+                                                                                            console.log(err2);
+                                                                                        }
+                                                                                        else {
+                                                                    
+                                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                                if(err2) {
+                                                                                                    console.log(err2);
+                                                                                                }
+                                                                                                else {
+                                                                            
+                                                                                                      
+                                                                            
+                                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                                    if(check==1)
+                                                                                                        {
+                                                                                                        next();
+                                                                                                        }
+                                                                                                        else res.send("Access to page denied");
+                                                                                                }
+                                                                                                });
+                                                                    
+                                                                                           
+                                                                                        }
+                                                                                        });
+                                                                                }
+                                                                                });
                                                                         }
                                                                         });
                                                                     
@@ -728,12 +998,39 @@ router.get('/course/:course_id/resources/', function(req,res,next){
                                                 console.log(err2);
                                             }
                                             else {
-                                                check=check_permission(rows3,object,action);
-                                                if(check==1)
-                                                    {
-                                                    next();
+                                                connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                    if(err2) {
+                                                        console.log(err2);
                                                     }
-                                                    else res.send("Access to page denied");
+                                                    else {
+                                                        connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                            if(err2) {
+                                                                console.log(err2);
+                                                            }
+                                                            else {
+                                        
+                                                                connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                    if(err2) {
+                                                                        console.log(err2);
+                                                                    }
+                                                                    else {
+                                                
+                                                                          
+                                                
+                                                                        check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                        if(check==1)
+                                                                            {
+                                                                            next();
+                                                                            }
+                                                                            else res.send("Access to page denied");
+                                                                    }
+                                                                    });
+                                        
+                                                               
+                                                            }
+                                                            });
+                                                    }
+                                                    });
                                             }
                                             });
                                         
@@ -808,12 +1105,39 @@ router.post('/course/:course_id/resources/', function(req,res,next){
                                                             console.log(err2);
                                                         }
                                                         else {
-                                                            check=check_permission(rows3,object,action);
-                                                            if(check==1)
-                                                                {
-                                                                next();
+                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                if(err2) {
+                                                                    console.log(err2);
                                                                 }
-                                                                else res.send("Access to page denied");
+                                                                else {
+                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
+                                                                                }
+                                                                                else {
+                                                            
+                                                                                      
+                                                            
+                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                    if(check==1)
+                                                                                        {
+                                                                                        next();
+                                                                                        }
+                                                                                        else res.send("Access to page denied");
+                                                                                }
+                                                                                });
+                                                    
+                                                                           
+                                                                        }
+                                                                        });
+                                                                }
+                                                                });
                                                         }
                                                         });
                                                     
@@ -898,12 +1222,39 @@ router.get('/course/:course_id/resources/:resource_id', function(req,res,next){
                                                                 console.log(err2);
                                                             }
                                                             else {
-                                                                check=check_permission(rows3,object,action);
-                                                                if(check==1)
-                                                                    {
-                                                                    next();
+                                                                connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                    if(err2) {
+                                                                        console.log(err2);
                                                                     }
-                                                                    else res.send("Access to page denied");
+                                                                    else {
+                                                                        connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                    if(err2) {
+                                                                                        console.log(err2);
+                                                                                    }
+                                                                                    else {
+                                                                
+                                                                                          
+                                                                
+                                                                                        check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                        if(check==1)
+                                                                                            {
+                                                                                            next();
+                                                                                            }
+                                                                                            else res.send("Access to page denied");
+                                                                                    }
+                                                                                    });
+                                                        
+                                                                               
+                                                                            }
+                                                                            });
+                                                                    }
+                                                                    });
                                                             }
                                                             });
                                                         
@@ -969,12 +1320,39 @@ router.get('/course/:course_id/resources/:resource_id/delete', function(req,res,
           console.log(err2);
        }
        else {
-           check=check_permission(rows3,object,action);
-           if(check==1)
-             {
-              next();
-             }
-             else res.send("Access to page denied");
+        connection.query("SELECT * FROM P ",function(err2,rows4){
+            if(err2) {
+                console.log(err2);
+            }
+            else {
+                connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                    if(err2) {
+                        console.log(err2);
+                    }
+                    else {
+
+                        connection.query("SELECT * FROM H" ,function(err2,rows6){
+                            if(err2) {
+                                console.log(err2);
+                            }
+                            else {
+        
+                                  
+        
+                                check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                if(check==1)
+                                    {
+                                    next();
+                                    }
+                                    else res.send("Access to page denied");
+                            }
+                            });
+
+                       
+                    }
+                    });
+            }
+            });
        }
      });
    
@@ -1069,12 +1447,39 @@ router.get('/course/:course_id/tests/', function(req,res,next){
                                                 console.log(err2);
                                             }
                                             else {
-                                                check=check_permission(rows3,object,action);
-                                                if(check==1)
-                                                    {
-                                                    next();
+                                                connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                    if(err2) {
+                                                        console.log(err2);
                                                     }
-                                                    else res.send("Access to page denied");
+                                                    else {
+                                                        connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                            if(err2) {
+                                                                console.log(err2);
+                                                            }
+                                                            else {
+                                        
+                                                                connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                    if(err2) {
+                                                                        console.log(err2);
+                                                                    }
+                                                                    else {
+                                                
+                                                                          
+                                                
+                                                                        check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                        if(check==1)
+                                                                            {
+                                                                            next();
+                                                                            }
+                                                                            else res.send("Access to page denied");
+                                                                    }
+                                                                    });
+                                        
+                                                               
+                                                            }
+                                                            });
+                                                    }
+                                                    });
                                             }
                                             });
                                         
@@ -1176,12 +1581,39 @@ router.get('/course/:course_id/tests/:test_id/edit', function(req,res,next){
                                                             console.log(err2);
                                                         }
                                                         else {
-                                                            check=check_permission(rows3,object,action);
-                                                            if(check==1)
-                                                                {
-                                                                next();
+                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                if(err2) {
+                                                                    console.log(err2);
                                                                 }
-                                                                else res.send("Access to page denied");
+                                                                else {
+                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
+                                                                                }
+                                                                                else {
+                                                            
+                                                                                      
+                                                            
+                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                    if(check==1)
+                                                                                        {
+                                                                                        next();
+                                                                                        }
+                                                                                        else res.send("Access to page denied");
+                                                                                }
+                                                                                });
+                                                    
+                                                                           
+                                                                        }
+                                                                        });
+                                                                }
+                                                                });
                                                         }
                                                         });
                                                     
@@ -1267,12 +1699,39 @@ router.post('/course/:course_id/tests/:test_id/edit',function(req,res,next){
                                                                 console.log(err2);
                                                             }
                                                             else {
-                                                                check=check_permission(rows3,object,action);
-                                                                if(check==1)
-                                                                    {
-                                                                    next();
+                                                                connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                    if(err2) {
+                                                                        console.log(err2);
                                                                     }
-                                                                    else res.send("Access to page denied");
+                                                                    else {
+                                                                        connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                    if(err2) {
+                                                                                        console.log(err2);
+                                                                                    }
+                                                                                    else {
+                                                                
+                                                                                          
+                                                                
+                                                                                        check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                        if(check==1)
+                                                                                            {
+                                                                                            next();
+                                                                                            }
+                                                                                            else res.send("Access to page denied");
+                                                                                    }
+                                                                                    });
+                                                        
+                                                                               
+                                                                            }
+                                                                            });
+                                                                    }
+                                                                    });
                                                             }
                                                             });
 
@@ -1403,12 +1862,39 @@ router.post('/course/:course_id/tests/', function(req,res,next){
                                                         console.log(err2);
                                                     }
                                                     else {
-                                                        check=check_permission(rows3,object,action);
-                                                        if(check==1)
-                                                            {
-                                                            next();
+                                                        connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                            if(err2) {
+                                                                console.log(err2);
                                                             }
-                                                            else res.send("Access to page denied");
+                                                            else {
+                                                                connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                    if(err2) {
+                                                                        console.log(err2);
+                                                                    }
+                                                                    else {
+                                                
+                                                                        connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                  
+                                                        
+                                                                                check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                if(check==1)
+                                                                                    {
+                                                                                    next();
+                                                                                    }
+                                                                                    else res.send("Access to page denied");
+                                                                            }
+                                                                            });
+                                                
+                                                                       
+                                                                    }
+                                                                    });
+                                                            }
+                                                            });
                                                     }
                                                     });
 
@@ -1475,12 +1961,39 @@ router.get('/course/:course_id/tests/:test_id/question',function(req,res,next){
                                                             console.log(err2);
                                                         }
                                                         else {
-                                                            check=check_permission(rows3,object,action);
-                                                            if(check==1)
-                                                                {
-                                                                next();
+                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                if(err2) {
+                                                                    console.log(err2);
                                                                 }
-                                                                else res.send("Access to page denied");
+                                                                else {
+                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
+                                                                                }
+                                                                                else {
+                                                            
+                                                                                      
+                                                            
+                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                    if(check==1)
+                                                                                        {
+                                                                                        next();
+                                                                                        }
+                                                                                        else res.send("Access to page denied");
+                                                                                }
+                                                                                });
+                                                    
+                                                                           
+                                                                        }
+                                                                        });
+                                                                }
+                                                                });
                                                         }
                                                         });
 
@@ -1547,12 +2060,39 @@ router.get('/course/:course_id/tests/:test_id/answer', function(req,res,next){
                                                                 console.log(err2);
                                                             }
                                                             else {
-                                                                check=check_permission(rows3,object,action);
-                                                                if(check==1)
-                                                                    {
-                                                                    next();
+                                                                connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                    if(err2) {
+                                                                        console.log(err2);
                                                                     }
-                                                                    else res.send("Access to page denied");
+                                                                    else {
+                                                                        connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                    if(err2) {
+                                                                                        console.log(err2);
+                                                                                    }
+                                                                                    else {
+                                                                
+                                                                                          
+                                                                
+                                                                                        check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                        if(check==1)
+                                                                                            {
+                                                                                            next();
+                                                                                            }
+                                                                                            else res.send("Access to page denied");
+                                                                                    }
+                                                                                    });
+                                                        
+                                                                               
+                                                                            }
+                                                                            });
+                                                                    }
+                                                                    });
                                                             }
                                                             });
 
@@ -1620,12 +2160,39 @@ router.get('/course/:course_id/tests/:test_id/delete', function(req,res,next){
                                                                 console.log(err2);
                                                             }
                                                             else {
-                                                                check=check_permission(rows3,object,action);
-                                                                if(check==1)
-                                                                    {
-                                                                    next();
+                                                                connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                    if(err2) {
+                                                                        console.log(err2);
                                                                     }
-                                                                    else res.send("Access to page denied");
+                                                                    else {
+                                                                        connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                    if(err2) {
+                                                                                        console.log(err2);
+                                                                                    }
+                                                                                    else {
+                                                                
+                                                                                          
+                                                                
+                                                                                        check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                        if(check==1)
+                                                                                            {
+                                                                                            next();
+                                                                                            }
+                                                                                            else res.send("Access to page denied");
+                                                                                    }
+                                                                                    });
+                                                        
+                                                                               
+                                                                            }
+                                                                            });
+                                                                    }
+                                                                    });
                                                             }
                                                             });
 
@@ -1728,12 +2295,39 @@ router.get('/course/:course_id/tests/:test_id/results',function(req,res,next){
                                                                             console.log(err2);
                                                                         }
                                                                         else {
-                                                                            check=check_permission(rows3,object,action);
-                                                                            if(check==1)
-                                                                                {
-                                                                                next();
+                                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
                                                                                 }
-                                                                                else res.send("Access to page denied");
+                                                                                else {
+                                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                                        if(err2) {
+                                                                                            console.log(err2);
+                                                                                        }
+                                                                                        else {
+                                                                    
+                                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                                if(err2) {
+                                                                                                    console.log(err2);
+                                                                                                }
+                                                                                                else {
+                                                                            
+                                                                                                      
+                                                                            
+                                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                                    if(check==1)
+                                                                                                        {
+                                                                                                        next();
+                                                                                                        }
+                                                                                                        else res.send("Access to page denied");
+                                                                                                }
+                                                                                                });
+                                                                    
+                                                                                           
+                                                                                        }
+                                                                                        });
+                                                                                }
+                                                                                });
                                                                         }
                                                                         });
 
@@ -1838,12 +2432,39 @@ router.post('/course/:course_id/tests/:test_id/results', function(req,res,next){
                                                             console.log(err2);
                                                         }
                                                         else {
-                                                            check=check_permission(rows3,object,action);
-                                                            if(check==1)
-                                                                {
-                                                                next();
+                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                if(err2) {
+                                                                    console.log(err2);
                                                                 }
-                                                                else res.send("Access to page denied");
+                                                                else {
+                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
+                                                                                }
+                                                                                else {
+                                                            
+                                                                                      
+                                                            
+                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                    if(check==1)
+                                                                                        {
+                                                                                        next();
+                                                                                        }
+                                                                                        else res.send("Access to page denied");
+                                                                                }
+                                                                                });
+                                                    
+                                                                           
+                                                                        }
+                                                                        });
+                                                                }
+                                                                });
                                                         }
                                                         });
 
@@ -1981,12 +2602,39 @@ router.get('/course/:course_id/assignments/', function(req,res,next){
                                                         console.log(err2);
                                                     }
                                                     else {
-                                                        check=check_permission(rows3,object,action);
-                                                        if(check==1)
-                                                            {
-                                                            next();
+                                                        connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                            if(err2) {
+                                                                console.log(err2);
                                                             }
-                                                            else res.send("Access to page denied");
+                                                            else {
+                                                                connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                    if(err2) {
+                                                                        console.log(err2);
+                                                                    }
+                                                                    else {
+                                                
+                                                                        connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                  
+                                                        
+                                                                                check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                if(check==1)
+                                                                                    {
+                                                                                    next();
+                                                                                    }
+                                                                                    else res.send("Access to page denied");
+                                                                            }
+                                                                            });
+                                                
+                                                                       
+                                                                    }
+                                                                    });
+                                                            }
+                                                            });
                                                     }
                                                     });
 
@@ -2063,12 +2711,39 @@ router.post('/course/:course_id/assignments/', function(req,res,next){
                                                         console.log(err2);
                                                     }
                                                     else {
-                                                        check=check_permission(rows3,object,action);
-                                                        if(check==1)
-                                                            {
-                                                            next();
+                                                        connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                            if(err2) {
+                                                                console.log(err2);
                                                             }
-                                                            else res.send("Access to page denied");
+                                                            else {
+                                                                connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                    if(err2) {
+                                                                        console.log(err2);
+                                                                    }
+                                                                    else {
+                                                
+                                                                        connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                  
+                                                        
+                                                                                check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                if(check==1)
+                                                                                    {
+                                                                                    next();
+                                                                                    }
+                                                                                    else res.send("Access to page denied");
+                                                                            }
+                                                                            });
+                                                
+                                                                       
+                                                                    }
+                                                                    });
+                                                            }
+                                                            });
                                                     }
                                                     });
 
@@ -2157,12 +2832,39 @@ router.get('/course/:course_id/assignments/:assignment_id', function(req,res,nex
                                                                     console.log(err2);
                                                                 }
                                                                 else {
-                                                                    check=check_permission(rows3,object,action);
-                                                                    if(check==1)
-                                                                        {
-                                                                        next();
+                                                                    connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                        if(err2) {
+                                                                            console.log(err2);
                                                                         }
-                                                                        else res.send("Access to page denied");
+                                                                        else {
+                                                                            connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
+                                                                                }
+                                                                                else {
+                                                            
+                                                                                    connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                        if(err2) {
+                                                                                            console.log(err2);
+                                                                                        }
+                                                                                        else {
+                                                                    
+                                                                                              
+                                                                    
+                                                                                            check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                            if(check==1)
+                                                                                                {
+                                                                                                next();
+                                                                                                }
+                                                                                                else res.send("Access to page denied");
+                                                                                        }
+                                                                                        });
+                                                            
+                                                                                   
+                                                                                }
+                                                                                });
+                                                                        }
+                                                                        });
                                                                 }
                                                                 });
 
@@ -2229,12 +2931,39 @@ router.get('/course/:course_id/assignments/:assignment_id/delete', function(req,
                                                                             console.log(err2);
                                                                         }
                                                                         else {
-                                                                            check=check_permission(rows3,object,action);
-                                                                            if(check==1)
-                                                                                {
-                                                                                next();
+                                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
                                                                                 }
-                                                                                else res.send("Access to page denied");
+                                                                                else {
+                                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                                        if(err2) {
+                                                                                            console.log(err2);
+                                                                                        }
+                                                                                        else {
+                                                                    
+                                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                                if(err2) {
+                                                                                                    console.log(err2);
+                                                                                                }
+                                                                                                else {
+                                                                            
+                                                                                                      
+                                                                            
+                                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                                    if(check==1)
+                                                                                                        {
+                                                                                                        next();
+                                                                                                        }
+                                                                                                        else res.send("Access to page denied");
+                                                                                                }
+                                                                                                });
+                                                                    
+                                                                                           
+                                                                                        }
+                                                                                        });
+                                                                                }
+                                                                                });
                                                                         }
                                                                         });
 
@@ -2332,12 +3061,39 @@ router.get('/course/:course_id/assignment/:assignment_id/submissions', function(
                                                                             console.log(err2);
                                                                         }
                                                                         else {
-                                                                            check=check_permission(rows3,object,action);
-                                                                            if(check==1)
-                                                                                {
-                                                                                next();
+                                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
                                                                                 }
-                                                                                else res.send("Access to page denied");
+                                                                                else {
+                                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                                        if(err2) {
+                                                                                            console.log(err2);
+                                                                                        }
+                                                                                        else {
+                                                                    
+                                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                                if(err2) {
+                                                                                                    console.log(err2);
+                                                                                                }
+                                                                                                else {
+                                                                            
+                                                                                                      
+                                                                            
+                                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                                    if(check==1)
+                                                                                                        {
+                                                                                                        next();
+                                                                                                        }
+                                                                                                        else res.send("Access to page denied");
+                                                                                                }
+                                                                                                });
+                                                                    
+                                                                                           
+                                                                                        }
+                                                                                        });
+                                                                                }
+                                                                                });
                                                                         }
                                                                         });
 
@@ -2416,12 +3172,39 @@ router.get('/course/:course_id/students', function(req,res,next){
                                                         console.log(err2);
                                                     }
                                                     else {
-                                                        check=check_permission(rows3,object,action);
-                                                        if(check==1)
-                                                            {
-                                                            next();
+                                                        connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                            if(err2) {
+                                                                console.log(err2);
                                                             }
-                                                            else res.send("Access to page denied");
+                                                            else {
+                                                                connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                    if(err2) {
+                                                                        console.log(err2);
+                                                                    }
+                                                                    else {
+                                                
+                                                                        connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                  
+                                                        
+                                                                                check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                if(check==1)
+                                                                                    {
+                                                                                    next();
+                                                                                    }
+                                                                                    else res.send("Access to page denied");
+                                                                            }
+                                                                            });
+                                                
+                                                                       
+                                                                    }
+                                                                    });
+                                                            }
+                                                            });
                                                     }
                                                     });
 
@@ -2546,12 +3329,39 @@ router.get('/course/:course_id/:student_id/approve', function(req,res,next){
                                                             console.log(err2);
                                                         }
                                                         else {
-                                                            check=check_permission(rows3,object,action);
-                                                            if(check==1)
-                                                                {
-                                                                next();
+                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                if(err2) {
+                                                                    console.log(err2);
                                                                 }
-                                                                else res.send("Access to page denied");
+                                                                else {
+                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
+                                                                                }
+                                                                                else {
+                                                            
+                                                                                      
+                                                            
+                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                    if(check==1)
+                                                                                        {
+                                                                                        next();
+                                                                                        }
+                                                                                        else res.send("Access to page denied");
+                                                                                }
+                                                                                });
+                                                    
+                                                                           
+                                                                        }
+                                                                        });
+                                                                }
+                                                                });
                                                         }
                                                         });
 
@@ -2684,12 +3494,39 @@ router.get('/course/:course_id/assistants', function(req,res,next){
                                                     console.log(err2);
                                                 }
                                                 else {
-                                                    check=check_permission(rows3,object,action);
-                                                    if(check==1)
-                                                        {
-                                                        next();
+                                                    connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                        if(err2) {
+                                                            console.log(err2);
                                                         }
-                                                        else res.send("Access to page denied");
+                                                        else {
+                                                            connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                if(err2) {
+                                                                    console.log(err2);
+                                                                }
+                                                                else {
+                                            
+                                                                    connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                              
+                                                    
+                                                                            check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                            if(check==1)
+                                                                                {
+                                                                                next();
+                                                                                }
+                                                                                else res.send("Access to page denied");
+                                                                        }
+                                                                        });
+                                            
+                                                                   
+                                                                }
+                                                                });
+                                                        }
+                                                        });
                                                 }
                                                 });
 
@@ -2794,12 +3631,39 @@ router.get('/course/:course_id/:assistant_id/approve2', function(req,res,next){
                                                                 console.log(err2);
                                                             }
                                                             else {
-                                                                check=check_permission(rows3,object,action);
-                                                                if(check==1)
-                                                                    {
-                                                                    next();
+                                                                connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                    if(err2) {
+                                                                        console.log(err2);
                                                                     }
-                                                                    else res.send("Access to page denied");
+                                                                    else {
+                                                                        connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                    if(err2) {
+                                                                                        console.log(err2);
+                                                                                    }
+                                                                                    else {
+                                                                
+                                                                                          
+                                                                
+                                                                                        check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                        if(check==1)
+                                                                                            {
+                                                                                            next();
+                                                                                            }
+                                                                                            else res.send("Access to page denied");
+                                                                                    }
+                                                                                    });
+                                                        
+                                                                               
+                                                                            }
+                                                                            });
+                                                                    }
+                                                                    });
                                                             }
                                                             });
 
@@ -2912,12 +3776,39 @@ router.get('/course/:course_id/qa', function(req,res,next){
                                             console.log(err2);
                                         }
                                         else {
-                                            check=check_permission(rows3,object,action);
-                                            if(check==1)
-                                                {
-                                                next();
+                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                if(err2) {
+                                                    console.log(err2);
                                                 }
-                                                else res.send("Access to page denied");
+                                                else {
+                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                        if(err2) {
+                                                            console.log(err2);
+                                                        }
+                                                        else {
+                                    
+                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                if(err2) {
+                                                                    console.log(err2);
+                                                                }
+                                                                else {
+                                            
+                                                                      
+                                            
+                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                    if(check==1)
+                                                                        {
+                                                                        next();
+                                                                        }
+                                                                        else res.send("Access to page denied");
+                                                                }
+                                                                });
+                                    
+                                                           
+                                                        }
+                                                        });
+                                                }
+                                                });
                                         }
                                         });
 
@@ -3026,12 +3917,39 @@ router.post('/course/:course_id/qa',function(req,res,next){
                                                     console.log(err2);
                                                 }
                                                 else {
-                                                    check=check_permission(rows3,object,action);
-                                                    if(check==1)
-                                                        {
-                                                        next();
+                                                    connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                        if(err2) {
+                                                            console.log(err2);
                                                         }
-                                                        else res.send("Access to page denied");
+                                                        else {
+                                                            connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                if(err2) {
+                                                                    console.log(err2);
+                                                                }
+                                                                else {
+                                            
+                                                                    connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                              
+                                                    
+                                                                            check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                            if(check==1)
+                                                                                {
+                                                                                next();
+                                                                                }
+                                                                                else res.send("Access to page denied");
+                                                                        }
+                                                                        });
+                                            
+                                                                   
+                                                                }
+                                                                });
+                                                        }
+                                                        });
                                                 }
                                                 });
 
@@ -3109,12 +4027,39 @@ router.post('/course/:course_id/:question_id/', function(req,res,next){
                                                     console.log(err2);
                                                 }
                                                 else {
-                                                    check=check_permission(rows3,object,action);
-                                                    if(check==1)
-                                                        {
-                                                        next();
+                                                    connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                        if(err2) {
+                                                            console.log(err2);
                                                         }
-                                                        else res.send("Access to page denied");
+                                                        else {
+                                                            connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                if(err2) {
+                                                                    console.log(err2);
+                                                                }
+                                                                else {
+                                            
+                                                                    connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                              
+                                                    
+                                                                            check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                            if(check==1)
+                                                                                {
+                                                                                next();
+                                                                                }
+                                                                                else res.send("Access to page denied");
+                                                                        }
+                                                                        });
+                                            
+                                                                   
+                                                                }
+                                                                });
+                                                        }
+                                                        });
                                                 }
                                                 });
 
@@ -3189,12 +4134,39 @@ router.get('/course/:course_id/assignment/:submission_id/submission', function(r
                                                                             console.log(err2);
                                                                         }
                                                                         else {
-                                                                            check=check_permission(rows3,object,action);
-                                                                            if(check==1)
-                                                                                {
-                                                                                next();
+                                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
                                                                                 }
-                                                                                else res.send("Access to page denied");
+                                                                                else {
+                                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                                        if(err2) {
+                                                                                            console.log(err2);
+                                                                                        }
+                                                                                        else {
+                                                                    
+                                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                                if(err2) {
+                                                                                                    console.log(err2);
+                                                                                                }
+                                                                                                else {
+                                                                            
+                                                                                                      
+                                                                            
+                                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                                    if(check==1)
+                                                                                                        {
+                                                                                                        next();
+                                                                                                        }
+                                                                                                        else res.send("Access to page denied");
+                                                                                                }
+                                                                                                });
+                                                                    
+                                                                                           
+                                                                                        }
+                                                                                        });
+                                                                                }
+                                                                                });
                                                                         }
                                                                         });
 
@@ -3279,12 +4251,39 @@ router.get('/course/:course_id/announcements/', function(req,res,next){
                                                             console.log(err2);
                                                         }
                                                         else {
-                                                            check=check_permission(rows3,object,action);
-                                                            if(check==1)
-                                                                {
-                                                                next();
+                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                if(err2) {
+                                                                    console.log(err2);
                                                                 }
-                                                                else res.send("Access to page denied");
+                                                                else {
+                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
+                                                                                }
+                                                                                else {
+                                                            
+                                                                                      
+                                                            
+                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                    if(check==1)
+                                                                                        {
+                                                                                        next();
+                                                                                        }
+                                                                                        else res.send("Access to page denied");
+                                                                                }
+                                                                                });
+                                                    
+                                                                           
+                                                                        }
+                                                                        });
+                                                                }
+                                                                });
                                                         }
                                                         });
 
@@ -3350,12 +4349,39 @@ router.post('/course/add/:course_id/attendence/', function(req,res,next){
                                                                 console.log(err2);
                                                             }
                                                             else {
-                                                                check=check_permission(rows3,object,action);
-                                                                if(check==1)
-                                                                    {
-                                                                    next();
+                                                                connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                    if(err2) {
+                                                                        console.log(err2);
                                                                     }
-                                                                    else res.send("Access to page denied");
+                                                                    else {
+                                                                        connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                    if(err2) {
+                                                                                        console.log(err2);
+                                                                                    }
+                                                                                    else {
+                                                                
+                                                                                          
+                                                                
+                                                                                        check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                        if(check==1)
+                                                                                            {
+                                                                                            next();
+                                                                                            }
+                                                                                            else res.send("Access to page denied");
+                                                                                    }
+                                                                                    });
+                                                        
+                                                                               
+                                                                            }
+                                                                            });
+                                                                    }
+                                                                    });
                                                             }
                                                             });
 
@@ -3526,12 +4552,39 @@ router.get('/course/:course_id/attendence/', function(req,res,next){
                                                             console.log(err2);
                                                         }
                                                         else {
-                                                            check=check_permission(rows3,object,action);
-                                                            if(check==1)
-                                                                {
-                                                                next();
+                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                if(err2) {
+                                                                    console.log(err2);
                                                                 }
-                                                                else res.send("Access to page denied");
+                                                                else {
+                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
+                                                                                }
+                                                                                else {
+                                                            
+                                                                                      
+                                                            
+                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                    if(check==1)
+                                                                                        {
+                                                                                        next();
+                                                                                        }
+                                                                                        else res.send("Access to page denied");
+                                                                                }
+                                                                                });
+                                                    
+                                                                           
+                                                                        }
+                                                                        });
+                                                                }
+                                                                });
                                                         }
                                                         });
 
@@ -3618,12 +4671,39 @@ router.get('/course/:course_id/attendence/:id/details', function(req,res,next){
                                                                 console.log(err2);
                                                             }
                                                             else {
-                                                                check=check_permission(rows3,object,action);
-                                                                if(check==1)
-                                                                    {
-                                                                    next();
+                                                                connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                    if(err2) {
+                                                                        console.log(err2);
                                                                     }
-                                                                    else res.send("Access to page denied");
+                                                                    else {
+                                                                        connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                    if(err2) {
+                                                                                        console.log(err2);
+                                                                                    }
+                                                                                    else {
+                                                                
+                                                                                          
+                                                                
+                                                                                        check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                        if(check==1)
+                                                                                            {
+                                                                                            next();
+                                                                                            }
+                                                                                            else res.send("Access to page denied");
+                                                                                    }
+                                                                                    });
+                                                        
+                                                                               
+                                                                            }
+                                                                            });
+                                                                    }
+                                                                    });
                                                             }
                                                             });
 
@@ -3730,12 +4810,39 @@ router.get('/course/:course_id/add_attendence/', function(req,res,next){
                                                         console.log(err2);
                                                     }
                                                     else {
-                                                        check=check_permission(rows3,object,action);
-                                                        if(check==1)
-                                                            {
-                                                            next();
+                                                        connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                            if(err2) {
+                                                                console.log(err2);
                                                             }
-                                                            else res.send("Access to page denied");
+                                                            else {
+                                                                connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                    if(err2) {
+                                                                        console.log(err2);
+                                                                    }
+                                                                    else {
+                                                
+                                                                        connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                  
+                                                        
+                                                                                check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                if(check==1)
+                                                                                    {
+                                                                                    next();
+                                                                                    }
+                                                                                    else res.send("Access to page denied");
+                                                                            }
+                                                                            });
+                                                
+                                                                       
+                                                                    }
+                                                                    });
+                                                            }
+                                                            });
                                                     }
                                                     });
 
@@ -3826,12 +4933,39 @@ router.post('/course/:course_id/:question_id/:answer_id', function(req,res,next)
                                                                     console.log(err2);
                                                                 }
                                                                 else {
-                                                                    check=check_permission(rows3,object,action);
-                                                                    if(check==1)
-                                                                        {
-                                                                        next();
+                                                                    connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                        if(err2) {
+                                                                            console.log(err2);
                                                                         }
-                                                                        else res.send("Access to page denied");
+                                                                        else {
+                                                                            connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
+                                                                                }
+                                                                                else {
+                                                            
+                                                                                    connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                        if(err2) {
+                                                                                            console.log(err2);
+                                                                                        }
+                                                                                        else {
+                                                                    
+                                                                                              
+                                                                    
+                                                                                            check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                            if(check==1)
+                                                                                                {
+                                                                                                next();
+                                                                                                }
+                                                                                                else res.send("Access to page denied");
+                                                                                        }
+                                                                                        });
+                                                            
+                                                                                   
+                                                                                }
+                                                                                });
+                                                                        }
+                                                                        });
                                                                 }
                                                                 });
 
@@ -3907,12 +5041,39 @@ router.get('/course/:course_id/exams/', function(req,res,next){
                                                     console.log(err2);
                                                 }
                                                 else {
-                                                    check=check_permission(rows3,object,action);
-                                                    if(check==1)
-                                                        {
-                                                        next();
+                                                    connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                        if(err2) {
+                                                            console.log(err2);
                                                         }
-                                                        else res.send("Access to page denied");
+                                                        else {
+                                                            connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                if(err2) {
+                                                                    console.log(err2);
+                                                                }
+                                                                else {
+                                            
+                                                                    connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                              
+                                                    
+                                                                            check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                            if(check==1)
+                                                                                {
+                                                                                next();
+                                                                                }
+                                                                                else res.send("Access to page denied");
+                                                                        }
+                                                                        });
+                                            
+                                                                   
+                                                                }
+                                                                });
+                                                        }
+                                                        });
                                                 }
                                                 });
 
@@ -3982,12 +5143,39 @@ router.get('/course/:course_id/add_exam/', function(req,res,next){
                                 console.log(err2);
                             }
                             else {
-                                check=check_permission(rows3,object,action);
-                                if(check==1)
-                                    {
-                                    next();
+                                connection.query("SELECT * FROM P ",function(err2,rows4){
+                                    if(err2) {
+                                        console.log(err2);
                                     }
-                                    else res.send("Access to page denied");
+                                    else {
+                                        connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                            if(err2) {
+                                                console.log(err2);
+                                            }
+                                            else {
+                        
+                                                connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                    if(err2) {
+                                                        console.log(err2);
+                                                    }
+                                                    else {
+                                
+                                                          
+                                
+                                                        check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                        if(check==1)
+                                                            {
+                                                            next();
+                                                            }
+                                                            else res.send("Access to page denied");
+                                                    }
+                                                    });
+                        
+                                               
+                                            }
+                                            });
+                                    }
+                                    });
                             }
                             });
 
@@ -4048,12 +5236,39 @@ router.post('/course/add/exam/:course_id/add_exam/',function(req,res,next){
                                                             console.log(err2);
                                                         }
                                                         else {
-                                                            check=check_permission(rows3,object,action);
-                                                            if(check==1)
-                                                                {
-                                                                next();
+                                                            connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                if(err2) {
+                                                                    console.log(err2);
                                                                 }
-                                                                else res.send("Access to page denied");
+                                                                else {
+                                                                    connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                        if(err2) {
+                                                                            console.log(err2);
+                                                                        }
+                                                                        else {
+                                                    
+                                                                            connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                if(err2) {
+                                                                                    console.log(err2);
+                                                                                }
+                                                                                else {
+                                                            
+                                                                                      
+                                                            
+                                                                                    check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                    if(check==1)
+                                                                                        {
+                                                                                        next();
+                                                                                        }
+                                                                                        else res.send("Access to page denied");
+                                                                                }
+                                                                                });
+                                                    
+                                                                           
+                                                                        }
+                                                                        });
+                                                                }
+                                                                });
                                                         }
                                                         });
 
@@ -4211,12 +5426,39 @@ router.get('/course/:course_id/exams/:exam_id/',function(req,res,next){
                                                         console.log(err2);
                                                     }
                                                     else {
-                                                        check=check_permission(rows3,object,action);
-                                                        if(check==1)
-                                                            {
-                                                            next();
+                                                        connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                            if(err2) {
+                                                                console.log(err2);
                                                             }
-                                                            else res.send("Access to page denied");
+                                                            else {
+                                                                connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                    if(err2) {
+                                                                        console.log(err2);
+                                                                    }
+                                                                    else {
+                                                
+                                                                        connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                  
+                                                        
+                                                                                check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                if(check==1)
+                                                                                    {
+                                                                                    next();
+                                                                                    }
+                                                                                    else res.send("Access to page denied");
+                                                                            }
+                                                                            });
+                                                
+                                                                       
+                                                                    }
+                                                                    });
+                                                            }
+                                                            });
                                                     }
                                                     });
 
@@ -4307,12 +5549,39 @@ router.get('/course/:course_id/exams/:exam_id/:student_id', function(req,res,nex
                                                                 console.log(err2);
                                                             }
                                                             else {
-                                                                check=check_permission(rows3,object,action);
-                                                                if(check==1)
-                                                                    {
-                                                                    next();
+                                                                connection.query("SELECT * FROM P ",function(err2,rows4){
+                                                                    if(err2) {
+                                                                        console.log(err2);
                                                                     }
-                                                                    else res.send("Access to page denied");
+                                                                    else {
+                                                                        connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                                                                            if(err2) {
+                                                                                console.log(err2);
+                                                                            }
+                                                                            else {
+                                                        
+                                                                                connection.query("SELECT * FROM H" ,function(err2,rows6){
+                                                                                    if(err2) {
+                                                                                        console.log(err2);
+                                                                                    }
+                                                                                    else {
+                                                                
+                                                                                          
+                                                                
+                                                                                        check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                                                                        if(check==1)
+                                                                                            {
+                                                                                            next();
+                                                                                            }
+                                                                                            else res.send("Access to page denied");
+                                                                                    }
+                                                                                    });
+                                                        
+                                                                               
+                                                                            }
+                                                                            });
+                                                                    }
+                                                                    });
                                                             }
                                                             });
 
@@ -4428,13 +5697,39 @@ router.get('/all', function(req,res,next){
        }
        else {
 
-           check=check_permission(rows3,object,action);
-         
-           if(check==1)
-             {
-              next();
-             }
-             else res.send("Access to page denied");
+        connection.query("SELECT * FROM P ",function(err2,rows4){
+            if(err2) {
+                console.log(err2);
+            }
+            else {
+                connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                    if(err2) {
+                        console.log(err2);
+                    }
+                    else {
+
+                        connection.query("SELECT * FROM H" ,function(err2,rows6){
+                            if(err2) {
+                                console.log(err2);
+                            }
+                            else {
+        
+                                  
+        
+                                check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                if(check==1)
+                                    {
+                                    next();
+                                    }
+                                    else res.send("Access to page denied");
+                            }
+                            });
+
+                       
+                    }
+                    });
+            }
+            });
         
           
 
@@ -4484,12 +5779,39 @@ router.get('/messages', function(req,res,next){
         console.log(err2);
     }
     else {
-        check=check_permission(rows3,object,action);
-        if(check==1)
-            {
-            next();
+        connection.query("SELECT * FROM P ",function(err2,rows4){
+            if(err2) {
+                console.log(err2);
             }
-            else res.send("Access to page denied");
+            else {
+                connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                    if(err2) {
+                        console.log(err2);
+                    }
+                    else {
+
+                        connection.query("SELECT * FROM H" ,function(err2,rows6){
+                            if(err2) {
+                                console.log(err2);
+                            }
+                            else {
+        
+                                  
+        
+                                check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                if(check==1)
+                                    {
+                                    next();
+                                    }
+                                    else res.send("Access to page denied");
+                            }
+                            });
+
+                       
+                    }
+                    });
+            }
+            });
     }
     });
 
@@ -4533,12 +5855,39 @@ router.post('/messages', function(req,res,next){
         console.log(err2);
     }
     else {
-        check=check_permission(rows3,object,action);
-        if(check==1)
-            {
-            next();
+        connection.query("SELECT * FROM P ",function(err2,rows4){
+            if(err2) {
+                console.log(err2);
             }
-            else res.send("Access to page denied");
+            else {
+                connection.query("SELECT * FROM RP" ,function(err2,rows5){
+                    if(err2) {
+                        console.log(err2);
+                    }
+                    else {
+
+                        connection.query("SELECT * FROM H" ,function(err2,rows6){
+                            if(err2) {
+                                console.log(err2);
+                            }
+                            else {
+        
+                                  
+        
+                                check=check_permission(rows3,object,action,rows4,rows5,rows6);
+                                if(check==1)
+                                    {
+                                    next();
+                                    }
+                                    else res.send("Access to page denied");
+                            }
+                            });
+
+                       
+                    }
+                    });
+            }
+            });
     }
     });
 
