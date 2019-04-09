@@ -187,7 +187,7 @@ router.get('/second',function(req,res,next){
                             }
                             else {
                                 console.log(rows3);
-                                res.send("second");
+                                res.render('student/second',{'user':rows1[0], 'student': rows2[0]});
                             }
                         });
 
@@ -284,7 +284,7 @@ router.get('/third', function(req,res,next){
                             }
                             else {
                                 console.log(rows3);
-                                res.send("third");
+                                res.render('student/third',{'user':rows1[0], 'student': rows2[0]});
                             }
                         });
 
@@ -381,7 +381,7 @@ router.get('/fourth', function(req,res,next){
                             }
                             else {
                                 console.log(rows3);
-                                res.send("fourth");
+                                res.render('student/fouorth',{'user':rows1[0], 'student': rows2[0]});
                             }
                         });
 

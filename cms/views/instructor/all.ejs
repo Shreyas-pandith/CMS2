@@ -48,7 +48,7 @@
         <nav class="navbar navbar-expand-lg navbar-light py-sm-4 py-2">
             <!-- logo -->
             <h1>
-                <a class="navbar-brand" href="/student/"> <i class="fab fa-affiliatetheme"></i>
+                <a class="navbar-brand" href="/instructor/"> <i class="fab fa-affiliatetheme"></i>
                     Eduversity
                 </a>
             </h1>
@@ -61,12 +61,12 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-lg-auto text-center">
                     <li class="nav-item mr-lg-3">
-                        <a class="nav-link" href="/student/">Home
+                        <a class="nav-link" href="/instructor/">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item mr-lg-3">
-                        <a class="nav-link" href="/student/courses">My Courses</a>
+                        <a class="nav-link" href="/instructor/courses/">Courses</a>
                     </li>
                     <li class="dropdown nav-item active mr-lg-3">
                         <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle ">
@@ -75,30 +75,13 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li class="nav-item">
-                                <a href="/student/profile/" class="nav-link">Profile</a>
+                                <a href="/instructor/profile/" class="nav-link">Profile</a>
                             </li>
                             <li class="nav-item">
                                 <a href="/users/logout" class="nav-link">Logout</a>
                             </li>
                         </ul>
-                    <li>
-                        <!-- search --->
-                        <div class="search-bar-agileits">
-                            <div class="cd-main-header">
-                                <ul class="cd-header-buttons">
-                                    <li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
-                                </ul>
-                                <!-- cd-header-buttons -->
-                            </div>
-                            <div id="cd-search" class="cd-search">
-                                <form action="/student/search" method="post">
-                                    <input name="search" type="search" placeholder="search for any course...">
-                                </form>
-                            </div>
-                        </div>
-                        <!-- search --->
 
-                    </li>
                 </ul>
             </div>
             <!-- //main nav -->
@@ -113,7 +96,7 @@
     <div class="container">
         <div class="agileinfo-inner">
             <h2 class="text-center text-white">
-                Welcome <%= student.First_Name%> <%= student.Last_Name%>
+               
             </h2>
         </div>
     </div>
@@ -123,112 +106,37 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="/student/">Home</a>
+            <a href="/instructor/">Home</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page"></li>
     </ol>
 </nav>
 <!-- //breadcrumbs -->
-<marquee behavior="scroll" direction="left"><h4 style="color: red; display: inline;">New Announcements..........   </h4>
-    <% if(announcement){%>
-        <% for(var i=0;i<announcement.length;i++) {%>
-            <h4 style="color: green; display: inline;"><%= announcement[i].Course_Title %> :</h4>
-            <a href="/student/course/announcement/<%= announcement[i].Course_id%>/<%= announcement[i].Anouncement_id%>"><h4 style=" display: inline;"><%= announcement[i].Short_Description%></h4></a>
-        <%}%>
-    <%}%>
-</marquee>
 
 
 <!-- courses -->
 <section class="courses py-5">
+
+
+
     <div class="container py-sm-3">
 
+                   <h1>all informamtion here is  only visible to HOD</h1>
 
-
-        <div class="row course-grids">
-
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card">
-                            <img class="card-img-top" src="/images/image2.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title"></h5>
-
-                                <h6 class="card-title"> MY COURSES</h6>
-
-                                <a href="/student/courses" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> OPEN</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card">
-                    <img class="card-img-top" src="/images/image3.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-
-                        <h6 class="card-title"> JOIN COURSES</h6>
-
-                        <a href="/student/course/join" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> OPEN</a>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-            <div class="col-lg-4 col-md-6">
-                <div class="card">
-                    <img class="card-img-top" style="width: 350px;height: 210px;" src="/images/history.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-
-                        <h6 class="card-title"> PROFILE</h6>
-
-                        <a href="/student/profile" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> OPEN</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="card">
-                    <img class="card-img-top" style="width: 350px;height: 210px;" src="/images/history.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-
-                        <h6 class="card-title"> Notice for second year students</h6>
-
-                        <a href="/student/second" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> OPEN</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="card">
-                    <img class="card-img-top" style="width: 350px;height: 210px;" src="/images/history.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-
-                        <h6 class="card-title"> Notice for third year students</h6>
-
-                        <a href="/student/third" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> OPEN</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="card">
-                    <img class="card-img-top" style="width: 350px;height: 210px;" src="/images/history.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-
-                        <h6 class="card-title"> Notice for fourth year students</h6>
-
-                        <a href="/student/fourth" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> OPEN</a>
-                    </div>
-                </div>
-            </div>
-
+                     <li>Point 1</li>
+                     <li>Point 2</li>
+                     <li>Point 3</li>
+                     <li>Point 4</li>
+                     <li>Point 5</li>
 
         </div>
     </div>
+
+
+
+
+
+
 </section>
 <!-- courses -->
 
@@ -301,6 +209,9 @@
     <!--</div>-->
 </footer>
 <!-- footer -->
+
+
+
 
 <!-- js -->
 <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>

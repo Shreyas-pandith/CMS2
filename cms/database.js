@@ -650,6 +650,23 @@ function connectDatabase() {
                     }
                     console.log('H table created');
                 });
+
+
+                let createTodos28 = `CREATE TABLE if not exists NOTICE
+                (
+                    notice VARCHAR(255)
+                  
+                ) 
+                ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci`;
+
+                db.query(createTodos28, function(err, results, fields) {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                    console.log('Notice table created');
+                });
+
+
                 db.end(function(err) {
                     if (err) {
                         return console.log(err.message);

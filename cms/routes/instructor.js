@@ -5756,7 +5756,7 @@ router.get('/all', function(req,res,next){
 
                     }
                     else {
-                       res.send("all");
+                      res.render("instructor/all");
 
                     }
                 });
@@ -5832,7 +5832,17 @@ router.get('/messages', function(req,res,next){
 
                     }
                     else {
-                       res.send("messages");
+                        connection.query("SELECT * FROM NOTICE " ,function(err2,rows3){
+                            if(err2) {
+                                console.log(err2);
+                                res.redirect('/users/login')
+        
+                            }
+                            else {
+                                res.render('instructor/notice',{'user':rows1[0], 'instructor': rows2[0], 'notice':rows3});
+        
+                            }
+                        });
 
                     }
                 });
@@ -5908,7 +5918,22 @@ router.post('/messages', function(req,res,next){
 
                     }
                     else {
-                       res.send("message");
+                        var notice=req.body.notice;
+                        var obj={
+                            notice:notice
+                        };
+
+                        connection.query("INSERT INTO NOTICE SET ? ",obj ,function(err2,rows2){
+                            if(err2) {
+                                console.log(err2);
+                                res.redirect('/users/login')
+        
+                            }
+                            else {
+                               res.redirect('/instructor/messages');
+        
+                            }
+                        });
 
                     }
                 });
